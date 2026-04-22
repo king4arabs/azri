@@ -58,6 +58,31 @@ Top threats AZRI must defend against:
 - Rotation cadence: 90 days for app secrets, 30 days for highly-privileged tokens, immediate on suspicion.
 - All third-party API keys scoped least-privilege.
 
+#### `.env.example` policy
+Every package or service that reads environment variables **must** ship a
+committed `.env.example` alongside its code. The policy:
+
+- **No real values, ever.** Use obvious placeholders (`changeme`, `REPLACE_ME`,
+  `https://example.com`) or leave the value empty. Real URLs, tokens, keys,
+  connection strings, tenant IDs, or customer identifiers are prohibited —
+  even for dev/staging.
+- **Every key is documented.** Each variable gets a one-line comment above it
+  stating: purpose, whether it is required, expected format, and the blast
+  radius if leaked. If a variable touches PHI, annotate it with `# PHI` so
+  reviewers catch it immediately.
+- **No hidden keys.** Production code must not read a variable that is not
+  listed in the nearest `.env.example`. CI enforces this once the first
+  service lands (v0.2.0+).
+- **Classification note.** Group keys by sensitivity (public config →
+  confidential secrets → PHI-adjacent) so operators can reason about rotation
+  and access.
+- **Sample files only.** `.env`, `.env.local`, `.env.*.local` are
+  git-ignored. The repo's root `.gitignore` already covers this; each new
+  package must not override it.
+
+The policy is applied at the first scaffold (`web/`, `api/`, future packages).
+Until then, `@azri/content` reads no secrets and ships no `.env.example`.
+
 ### Audit logging
 - Append-only audit log in a separate schema with longer retention than primary data.
 - Captures: who, what, when, from where, on which subject, with what justification (where applicable).

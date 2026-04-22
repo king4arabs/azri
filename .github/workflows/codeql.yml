@@ -1,0 +1,50 @@
+name: CodeQL
+
+# Static analysis for the JavaScript / TypeScript surface.
+# The repository currently only ships `@azri/content` (TypeScript); as more
+# languages land (Swift for iOS, Python for any ML tooling, etc.) add them
+# to the `language` matrix below.
+#
+# This workflow implements the SECURITY.md baseline: "CodeQL + container
+# image scanning in CI".
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Weekly baseline scan in case nothing else triggers it for a while.
+    - cron: "23 6 * * 1"
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["javascript-typescript"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-extended,security-and-quality
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"

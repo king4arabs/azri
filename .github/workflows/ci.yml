@@ -1,0 +1,55 @@
+name: CI
+
+# Application-code CI for AZRI.
+#
+# Today this covers `packages/content` (the only code in the repo).
+# When `web/`, `api/`, and other packages land in v0.2.0+, add their jobs here.
+#
+# Healthcare context: every code-introducing PR must pass typecheck + tests.
+# The docs-validation workflow continues to guard documentation quality.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "packages/**"
+      - ".github/workflows/ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  content-package:
+    name: "@azri/content (Node ${{ matrix.node }})"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["20.x", "22.x"]
+    defaults:
+      run:
+        working-directory: packages/content
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "npm"
+          cache-dependency-path: packages/content/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test

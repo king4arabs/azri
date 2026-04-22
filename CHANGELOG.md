@@ -6,6 +6,16 @@ All notable changes to AZRI are documented here. The format follows [Keep a Chan
 
 ## [Unreleased]
 
+### Added — Repository hygiene & CI (planned for `v0.2.0`)
+- `.github/dependabot.yml` — weekly dependency updates for `github-actions` and `packages/content`, minor/patch grouped, major updates individually, with dedicated labels.
+- `.github/workflows/codeql.yml` — CodeQL static analysis for JavaScript/TypeScript on push, PR, and a weekly schedule; uses `security-extended` + `security-and-quality` query packs. Implements the SECURITY.md "CodeQL + container image scanning in CI" baseline for the current code surface.
+- `.github/workflows/ci.yml` — application-code CI. Runs `typecheck` + unit tests for `@azri/content` on a Node 20 / Node 22 matrix. Future packages (`web/`, `api/`, ...) will extend this workflow.
+
+### Changed
+- `SECURITY.md` — added an explicit **`.env.example` policy** under *Secrets*: no real values, every key documented, no hidden keys, classification-grouped, enforced at first scaffold.
+- `TODO.md` — groomed Priority 1/2 and "Discovered while doing v0.1.0" sections to reflect the Dependabot/CodeQL/CI landings, the `.env.example` policy definition, and the Renovate-vs-Dependabot decision.
+- `PROJECT_STATUS.md` — updated CI/CD and security-baseline audit rows to reflect the new automated hygiene.
+
 ### Added — Content system (planned for `v0.2.0`)
 - `packages/content/` — typed, framework-agnostic shared content package (`@azri/content`).
   - `src/types.ts` — strict TypeScript schema for all 27 content sections (brand, hero, whyAzri, audienceSegments, valuePropositions, productSuite, howItWorks, appleWatch, benefits, pricing, trustAndResponsibility, finalCTA, aboutPage, solutionsPage, patientsFamiliesPage, doctorsPage, institutionsPage, technologyPage, faqPage, contactPage, uiMicrocopy, seo, footer, medicalDisclaimer, brandMessage, sitemap, supportingNote).
