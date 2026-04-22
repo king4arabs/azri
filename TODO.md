@@ -11,13 +11,13 @@
 - [ ] Confirm cloud region / data residency policy (ADR-0007).
 - [ ] Add `security@azri.ai` mailbox + GitHub Security Advisories enabled.
 - [ ] Enable Dependabot + secret scanning + CodeQL on the repository.
-- [ ] Define `.env.example` policy (no real values, every key documented) — applied at first scaffold.
+- [x] Define `.env.example` policy (no real values, every key documented) — applied at first scaffold.
 - [ ] Bring KSA data classification table into `DATA_MODEL.md` once first schema is drafted.
 
 ### Priority 2 — platform clarity
-- [ ] Scaffold `web/` (Next.js + Tailwind + shadcn/ui, Arabic-first, RTL).
+- [x] Scaffold `web/` (Next.js + Tailwind + shadcn/ui, Arabic-first, RTL). _(shadcn/ui deferred — Tailwind v4 in place.)_
 - [ ] Scaffold `api/` (NestJS or Fastify) with health endpoint, OpenAPI, structured logging.
-- [ ] CI: lint, type-check, unit, build matrix; axe; lighthouse-CI.
+- [ ] CI: lint, type-check, unit, build matrix; axe; lighthouse-CI. _(partial: lint/typecheck/build wired in `web-ci.yml`; unit, axe, lighthouse pending.)_
 - [ ] Sentry + PostHog + Plausible/GA wired with PHI exclusions.
 - [ ] PR template enforcement for healthcare wording check.
 
