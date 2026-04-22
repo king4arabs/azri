@@ -48,6 +48,7 @@ jobs:
             I18N_L10N.md
             COMPLIANCE_READINESS.md
             AI_TRANSPARENCY.md
+            PRIVACY_NOTICE.md
             INCIDENT_RESPONSE.md
             RELEASE_PROCESS.md
             RUNBOOKS.md

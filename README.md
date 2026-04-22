@@ -178,6 +178,7 @@ These documents are the source of truth for *how AZRI is built, run, sold, and g
 | [`SECURITY.md`](./SECURITY.md) | Security baseline & responsible disclosure |
 | [`COMPLIANCE_READINESS.md`](./COMPLIANCE_READINESS.md) | KSA / GCC / global posture (no fake claims) |
 | [`AI_TRANSPARENCY.md`](./AI_TRANSPARENCY.md) | Plain-language public statement on how AZRI uses (or does not yet use) AI |
+| [`PRIVACY_NOTICE.md`](./PRIVACY_NOTICE.md) | Plain-language bilingual (Arabic + English) privacy notice — draft, pending legal + native-speaker review |
 | [`ACCESSIBILITY.md`](./ACCESSIBILITY.md) | WCAG, assistive tech, healthcare a11y |
 | [`I18N_L10N.md`](./I18N_L10N.md) | Arabic-first, RTL/LTR, locale strategy |
 

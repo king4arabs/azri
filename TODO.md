@@ -29,7 +29,7 @@
 ### Priority 3 — product clarity
 - [ ] Marketing pages skeleton (or import from `azri.ai`): home, pricing, demo, contact, trust.
 - [ ] Pricing copy reflects multi-tier offering (`BUSINESS_CONTEXT.md`).
-- [ ] Plain-language privacy notice in Arabic + English.
+- [x] Plain-language privacy notice in Arabic + English → [`PRIVACY_NOTICE.md`](./PRIVACY_NOTICE.md) (v0.1.0 draft; legal + native-KSA review and mailbox provisioning still required before production).
 - [x] Public AI transparency page draft → [`AI_TRANSPARENCY.md`](./AI_TRANSPARENCY.md) (v0.1.0 baseline; updated release-by-release as AI features land).
 
 ## Next (v0.3.0)
