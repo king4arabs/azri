@@ -607,7 +607,7 @@ const RENDERERS: Partial<Record<ContentSectionKey, () => React.ReactElement>> = 
 export function renderSection(key: ContentSectionKey): React.ReactElement | null {
   const Renderer = RENDERERS[key];
   if (!Renderer) return null;
-  return <Renderer key={key} />;
+  return <Renderer />;
 }
 
 export function renderSections(
