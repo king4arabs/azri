@@ -27,8 +27,13 @@
 - [x] PR template enforcement for healthcare wording check *(embedded in `.github/PULL_REQUEST_TEMPLATE.md` — required checklist for user-visible copy)*.
 
 ### Priority 3 — product clarity
-- [ ] Marketing pages skeleton (or import from `azri.ai`): home, pricing, demo, contact, trust.
-- [ ] Pricing copy reflects multi-tier offering (`BUSINESS_CONTEXT.md`).
+- [ ] Marketing pages skeleton (home, pricing, demo, contact, trust) *(blocked on v0.2.0 web scaffold; the bilingual content and page bindings are already shipped in `@azri/content`)*.
+  - [x] Bilingual content + page bindings for marketing pages in `@azri/content` (`CONTENT_SYSTEM.md`).
+  - [ ] Next.js consumer that actually renders the pages — awaits Priority 2 web scaffold.
+- [ ] Pricing copy reflects multi-tier offering (`BUSINESS_CONTEXT.md`) *(blocked on marketing decision; see `BUSINESS_CONTEXT.md#current-state-vs-target`)*.
+  - Today's `@azri/content` pricing mirrors the live `azri.ai` site (4 tiers: basic / advanced / insuranceDoctors / enterprise).
+  - `BUSINESS_CONTEXT.md` defines an aspirational 5-tier intent (Free / Care+ / Doctor / Clinic / Enterprise).
+  - Reconciliation requires decisions on SKU naming (incl. native Arabic names), trial length, Doctor-tier pricing basis, and Insurer-tier pricing model — tracked as open questions.
 - [x] Plain-language privacy notice in Arabic + English → [`PRIVACY_NOTICE.md`](./PRIVACY_NOTICE.md) (v0.1.0 draft; legal + native-KSA review and mailbox provisioning still required before production).
 - [x] Public AI transparency page draft → [`AI_TRANSPARENCY.md`](./AI_TRANSPARENCY.md) (v0.1.0 baseline; updated release-by-release as AI features land).
 
