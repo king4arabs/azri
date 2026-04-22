@@ -14,6 +14,54 @@
 
 > **Default** for any new field is *Confidential or higher*. Justify in PR if marking lower.
 
+## KSA classification mapping
+
+This table maps AZRI's internal classification to Saudi regulatory categories so
+engineers and reviewers can reason about **residency**, **consent**, and
+**lawful basis** when modeling a new field. It is an internal handling guide
+derived from public references to Saudi **PDPL** (Personal Data Protection Law,
+issued by SDAIA) and the **NDMO** National Data Management Office / SDAIA data
+classification scheme referenced by NCA ECC controls. **It is not a legal
+opinion.** Before v0.7.0 launch the mapping must be reviewed by Saudi
+privacy/healthcare counsel (see `COMPLIANCE_READINESS.md` — open items).
+
+| AZRI level | PDPL category (indicative) | NDMO / SDAIA classification (indicative) | KSA residency expectation | Consent / lawful basis | Minimum controls |
+| --- | --- | --- | --- | --- | --- |
+| **Public** | Not personal data | **Public** | Anywhere | None required | Integrity only |
+| **Internal** | Not personal data (aggregate / anonymous metrics) | **Public** or **Confidential** (if re-identifiable) | Flexible; prefer `me-south-1` for operational data | Legitimate interest; document purpose | RBAC, audit on export |
+| **Confidential** | **Personal data** (names, contact, billing) | **Confidential** | `me-south-1` (Bahrain) default; in-Kingdom for institutional contracts that require it (ADR-0007) | Explicit consent captured at collection; purpose-limited | RBAC + encryption at rest + audit on access |
+| **Sensitive PHI** | **Sensitive personal data** — health data (PDPL Art. 1 / sensitive data definition) | **Secret** (health data typically treated as Secret per NDMO health-sector guidance) | `me-south-1` default; **in-Kingdom option mandatory** for institutional customers that require it; cross-border transfer requires explicit consent + regulator-approved safeguards | Explicit, granular, revocable patient/caregiver consent per data class; child subjects require guardian consent | RBAC + RLS + field-level encryption + step-up auth + consent check at request time + full audit trail (no PHI in audit payload) |
+| **Highly sensitive** | **Sensitive personal data** — includes biometric, genetic, and credit/government-ID data (credit data under separate KSA regulation) | **Secret** or **Top Secret** depending on data type and institutional context | In-Kingdom preferred; avoid storing; **never** cross-border without documented regulator-approved transfer mechanism | Explicit consent + documented legal necessity; minimize or avoid | Tokenized or not stored at all; if stored: HSM-backed key separation + shortest possible retention + quarterly access review |
+
+Operational notes for this mapping:
+
+- **Residency default.** AZRI workloads default to AWS `me-south-1` (Bahrain).
+  For institutional customers whose contracts or sector guidance require
+  in-Kingdom hosting (e.g. government-affiliated healthcare programs), a
+  dedicated deployment topology is planned for v0.5.0+ per ADR-0007. Design
+  PHI-bearing code to be residency-parametric from day one — no baked-in
+  region assumptions.
+- **Cross-border transfers.** Any cross-border transfer of Sensitive PHI or
+  Highly sensitive data must have: (1) explicit patient/caregiver consent
+  scoped to the transfer, (2) a lawful basis recorded against the processing
+  activity, and (3) a regulator-approved safeguard (e.g. adequacy decision,
+  approved contractual mechanism). If any of the three is missing, the
+  transfer does not happen.
+- **Audit payloads.** Audit log entries reference PHI by ID only. Never write
+  PHI field contents into audit records, log lines, metrics, analytics
+  events, error reports, or crash dumps. Log redaction is enforced at the
+  logger layer, not by convention.
+- **Consent state is checked at request time.** Granting consent once is not
+  enough; every accessor re-verifies consent state on each access, and consent
+  revocations emit audit events.
+- **Pediatric / guardian consent.** Where the subject is a minor, guardian
+  consent is required and the consent grant records the guardian relationship
+  and evidence. Open item in `COMPLIANCE_READINESS.md`.
+
+New fields and new processing activities **must** extend this mapping in the
+same PR that introduces them. Reviewers block merge if a new PHI-adjacent
+field lands without an entry here.
+
 ## Core entities (initial)
 
 ```

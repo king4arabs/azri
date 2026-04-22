@@ -13,7 +13,8 @@ All notable changes to AZRI are documented here. The format follows [Keep a Chan
 
 ### Changed
 - `SECURITY.md` — added an explicit **`.env.example` policy** under *Secrets*: no real values, every key documented, no hidden keys, classification-grouped, enforced at first scaffold.
-- `TODO.md` — groomed Priority 1/2 and "Discovered while doing v0.1.0" sections to reflect the Dependabot/CodeQL/CI landings, the `.env.example` policy definition, and the Renovate-vs-Dependabot decision.
+- `DATA_MODEL.md` — added a **KSA classification mapping** cross-referencing the internal 5-tier classification with PDPL categories, NDMO/SDAIA classification tiers, residency expectations (`me-south-1` default + in-Kingdom institutional option per ADR-0007), consent / lawful basis, and minimum controls. Mapping is explicitly marked as internal handling guidance pending Saudi privacy/healthcare counsel review (per `COMPLIANCE_READINESS.md` open items).
+- `TODO.md` — checked off the KSA classification table item; groomed Priority 1/2 and "Discovered while doing v0.1.0" sections to reflect the Dependabot/CodeQL/CI landings, the `.env.example` policy definition, and the Renovate-vs-Dependabot decision.
 - `PROJECT_STATUS.md` — updated CI/CD and security-baseline audit rows to reflect the new automated hygiene.
 
 ### Added — Content system (planned for `v0.2.0`)

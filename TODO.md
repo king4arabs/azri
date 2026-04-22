@@ -13,7 +13,7 @@
 - [x] Enable Dependabot (`.github/dependabot.yml`) + CodeQL (`.github/workflows/codeql.yml`).
 - [ ] Enable GitHub secret scanning + push protection on the repository *(repo-admin setting; not expressible in-repo)*.
 - [x] Define `.env.example` policy (no real values, every key documented) — see `SECURITY.md#env-example-policy`. Enforcement applied at first scaffold.
-- [ ] Bring KSA data classification table into `DATA_MODEL.md` once first schema is drafted.
+- [x] Bring KSA data classification table into `DATA_MODEL.md` (PDPL + NDMO mapping + residency + consent; *legal review still required before v0.7.0 launch*).
 
 ### Priority 2 — platform clarity
 - [ ] Scaffold `web/` (Next.js + Tailwind + shadcn/ui, Arabic-first, RTL).
