@@ -1,0 +1,51 @@
+# Dependabot configuration for AZRI.
+#
+# Policy (mirrors SECURITY.md):
+#   - Weekly dependency review cadence.
+#   - Minor + patch updates grouped to reduce PR noise while keeping hygiene.
+#   - Major updates proposed individually so they can be risk-assessed.
+#   - Healthcare / PHI-handling context: every PR still requires human review.
+#
+# Ecosystems:
+#   - `github-actions`   → keep workflow dependencies current.
+#   - `npm` at /packages/content → the only code currently committed (`@azri/content`).
+#
+# New packages added under `packages/*` should get their own entry here until a
+# root workspace is introduced.
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(ci)"
+    labels:
+      - "dependencies"
+      - "ci"
+    groups:
+      github-actions-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "npm"
+    directory: "/packages/content"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+    labels:
+      - "dependencies"
+      - "packages/content"
+    groups:
+      content-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
