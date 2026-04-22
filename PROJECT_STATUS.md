@@ -1,21 +1,21 @@
 # PROJECT_STATUS
 
 > Live audit of the AZRI repository. Severity ratings are honest and based on observable repository evidence.
-> Last updated: **2026-04-22** (v0.1.0).
+> Last updated: **2026-04-22** (Unreleased — content system landed).
 
 ## Maturity assessment (executive summary)
 
 | Domain | Maturity | Notes |
 | --- | --- | --- |
 | Repository operating system | **L2 — Defined** (just established in v0.1.0) | Docs and SKILLS framework now exist; need to be lived. |
-| Application code | **L0 — None** | No code committed. |
+| Application code | **L1 — Initial** | Shared bilingual content package (`@azri/content`) is the first code committed; no UI surfaces yet. |
 | CI/CD | **L1 — Initial** | Only docs validation workflow. No build/test/deploy. |
 | Security baseline | **L1 — Initial** | Policy documented; no code surface to harden yet. |
 | Privacy / compliance | **L1 — Initial** | Posture written; not certified. |
 | Product surfaces | **L0 — Not in repo** | Public site exists at `azri.ai`; not in this repository. |
 | Observability | **L0 — None** | To establish in v0.3.0. |
 | Analytics | **L1 — Defined** | Event taxonomy drafted; not wired. |
-| i18n / RTL | **L1 — Defined** | Strategy documented; no UI to translate yet. |
+| i18n / RTL | **L2 — Defined** | Strategy + bilingual content schema + RTL/LTR helpers in place; awaiting UI consumer. |
 | Accessibility | **L1 — Defined** | WCAG 2.2 AA target documented; no UI yet. |
 
 Maturity scale: L0 None → L1 Initial → L2 Defined → L3 Repeatable → L4 Measured → L5 Optimized.
@@ -36,14 +36,14 @@ Maturity scale: L0 None → L1 Initial → L2 Defined → L3 Repeatable → L4 M
 | 10 | API shape & docs | None | No spec | High | `API_DOCUMENTATION.md` defines conventions; OpenAPI in v0.2.0 | — |
 | 11 | Frontend consistency | None | No design tokens | Medium | `SKILLS/ux_ui.md` defines design system intent | UI scaffold |
 | 12 | UI system / design debt | None | — | Medium | shadcn/ui + Tailwind tokens (ADR-0006) | UI scaffold |
-| 13 | Arabic/English support | None | Critical for KSA-first product | **Critical** | `I18N_L10N.md` strategy; Arabic-first reviews mandatory | UI scaffold |
-| 14 | RTL/LTR support | None | — | **Critical** | Same as above + logical CSS properties baked in from day 1 | UI scaffold |
+| 13 | Arabic/English support | Bilingual content schema landed in `@azri/content` (both `ar`+`en` enforced); no UI consumer yet | **Critical** for KSA-first product | High (was Critical) | Wire UI in v0.2.0 web scaffold; keep `I18N_L10N.md` Arabic-first reviews mandatory | UI scaffold |
+| 14 | RTL/LTR support | RTL/LTR helpers (`getDirection`, `localeAttributes`) shipped in `@azri/content`; logical-CSS guidance documented | — | High (was Critical) | Apply logical CSS properties from day 1 in v0.2.0 web scaffold | UI scaffold |
 | 15 | Accessibility | None | Healthcare context demands strong a11y | **Critical** | `ACCESSIBILITY.md` mandates WCAG 2.2 AA; axe in CI | UI scaffold |
 | 16 | Tests / coverage | None | — | High | `TESTING.md` defines pyramid + gates | Code arrives |
 | 17 | CI/CD | docs-validation only | No code pipelines | High | Add lint/test/build matrix in v0.2.0 | Code arrives |
 | 18 | Deployment readiness | None | — | High | `DEPLOYMENT.md` outlines envs; provision in v0.3.0 | Cloud account |
 | 19 | Observability / analytics | None | — | High | `OBSERVABILITY.md`, `ANALYTICS.md` | Code arrives |
-| 20 | SEO / metadata | External site only | Not in repo | Medium | Address with web app in v0.2.0 | Web scaffold |
+| 20 | SEO / metadata | `seo` section (titles + default description, AR/EN) shipped in `@azri/content`; external `azri.ai` site not yet in repo | Web app must consume the SEO source on render | Medium | Wire `<Metadata>` to `azriContent.seo.pages[pageId]` in v0.2.0 | Web scaffold |
 | 21 | Privacy / compliance | Posture documented | No certification, no DPA templates | High | `COMPLIANCE_READINESS.md` honest posture; track audits | Legal |
 | 22 | Healthcare wording / disclaimers | Documented | Must be enforced in copy | High | `SKILLS/healthcare_product.md` + PR template gate | Content review |
 | 23 | Performance | Unknown | — | Medium | `OPERATIONS.md` defines SLOs; perf budgets in v0.3.0 | Code arrives |

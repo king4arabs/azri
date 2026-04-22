@@ -6,12 +6,32 @@ All notable changes to AZRI are documented here. The format follows [Keep a Chan
 
 ## [Unreleased]
 
-Planned for `v0.2.0` — see [`ROADMAP.md`](./ROADMAP.md):
-- Web app scaffolding (Next.js + Tailwind + shadcn/ui, Arabic-first, RTL)
-- API skeleton with OpenAPI contract and health endpoints
-- Auth provider decision finalized in `DECISIONS.md` (ADR-0004)
-- CI workflows for lint/test/build matrix
-- Initial analytics event taxonomy wired (PostHog + privacy-safe marketing analytics)
+### Added — Content system (planned for `v0.2.0`)
+- `packages/content/` — typed, framework-agnostic shared content package (`@azri/content`).
+  - `src/types.ts` — strict TypeScript schema for all 27 content sections (brand, hero, whyAzri, audienceSegments, valuePropositions, productSuite, howItWorks, appleWatch, benefits, pricing, trustAndResponsibility, finalCTA, aboutPage, solutionsPage, patientsFamiliesPage, doctorsPage, institutionsPage, technologyPage, faqPage, contactPage, uiMicrocopy, seo, footer, medicalDisclaimer, brandMessage, sitemap, supportingNote).
+  - `src/data/azri.ts` — bilingual (Arabic / English) source-of-truth content authored to AZRI's careful medical-wording policy (no diagnosis, prediction, cure, or clinician-replacement claims).
+  - `src/locale.ts` — locale resolution (`resolveLocale`), RTL/LTR helpers (`getDirection`, `isRtl`, `localeAttributes`), and a safe locale picker (`pick`) with empty-string fallback.
+  - `src/page-bindings.ts` — declarative mapping of website pages **and** app screens to content sections so web and app render the same source of truth without duplicating "what does the home page show?" logic.
+  - `src/__tests__/azri.test.ts` — 15 sanity tests (built-in `node:test`) covering schema completeness, bilingual coverage, id uniqueness, disclaimer wording, and page-binding integrity.
+- `CONTENT_SYSTEM.md` — architecture, schema reference, page-binding tables, web/app consumption examples, authoring workflow, and versioning rules for content updates.
+- `DECISIONS.md` — **ADR-0010** records the decision to centralize bilingual content in `@azri/content` as a typed, framework-agnostic package.
+- Root `.gitignore` added to keep `node_modules/`, build output, and local env files out of the repo.
+
+### Changed
+- `I18N_L10N.md` — added a "Content system" section pointing to `@azri/content` as the runtime mechanism that operationalizes the i18n strategy.
+- `PROJECT_STATUS.md` — updated audit dimensions #13 (Arabic/English support), #14 (RTL/LTR), #20 (SEO/metadata) to reflect that the bilingual content schema and SEO source now exist (no UI consumer yet).
+- `README.md` — added `CONTENT_SYSTEM.md` and `packages/content` to the document map.
+
+### Notes
+- No application code is wired to the content package yet — that lands with the web scaffold in `v0.2.0` and the patient/doctor surfaces in subsequent minors.
+- Docs validation CI (`docs-validation.yml`) is unchanged; no required documentation files were removed or renamed.
+
+### Still planned for `v0.2.0` — see [`ROADMAP.md`](./ROADMAP.md)
+- Web app scaffolding (Next.js + Tailwind + shadcn/ui, Arabic-first, RTL) wired to `@azri/content`.
+- API skeleton with OpenAPI contract and health endpoints.
+- Auth provider decision finalized in `DECISIONS.md` (ADR-0004).
+- CI workflows for lint/test/build matrix (will include `packages/content` typecheck + tests).
+- Initial analytics event taxonomy wired (PostHog + privacy-safe marketing analytics).
 
 ---
 

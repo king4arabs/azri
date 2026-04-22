@@ -1,0 +1,39 @@
+{
+  "name": "@azri/content",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AZRI shared bilingual (Arabic/English) content source of truth. Framework-agnostic, typed, and consumable by the website, patient app, doctor dashboard, institutional platform, and wearable surfaces.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./data": "./src/data/azri.ts",
+    "./types": "./src/types.ts",
+    "./locale": "./src/locale.ts",
+    "./page-bindings": "./src/page-bindings.ts"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test src/__tests__/*.test.ts"
+  },
+  "keywords": [
+    "azri",
+    "content",
+    "i18n",
+    "bilingual",
+    "arabic",
+    "rtl",
+    "healthcare"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.19.39",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
