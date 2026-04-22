@@ -1,0 +1,71 @@
+# AZRI CODEOWNERS
+#
+# Owners listed here are auto-requested for review on matching paths.
+# Replace placeholder team handles (@king4arabs/*) with real GitHub teams as they are created.
+#
+# Order matters: the LAST matching pattern wins.
+
+# Default — anything not matched below
+*                                          @king4arabs/maintainers
+
+# Repository operating system & governance
+/README.md                                 @king4arabs/maintainers
+/CHANGELOG.md                              @king4arabs/maintainers
+/VERSION.md                                @king4arabs/maintainers
+/PROJECT_STATUS.md                         @king4arabs/maintainers
+/ROADMAP.md                                @king4arabs/maintainers
+/DECISIONS.md                              @king4arabs/maintainers
+/CONTRIBUTING.md                           @king4arabs/maintainers
+/RELEASE_PROCESS.md                        @king4arabs/maintainers
+
+# Architecture & data
+/ARCHITECTURE.md                           @king4arabs/architecture
+/DATA_MODEL.md                             @king4arabs/architecture @king4arabs/backend
+/API_DOCUMENTATION.md                      @king4arabs/backend @king4arabs/architecture
+/SDK_DOCUMENTATION.md                      @king4arabs/backend
+
+# Operations
+/DEPLOYMENT.md                             @king4arabs/devops
+/OPERATIONS.md                             @king4arabs/devops
+/OBSERVABILITY.md                          @king4arabs/devops
+/INCIDENT_RESPONSE.md                      @king4arabs/devops @king4arabs/security
+/RUNBOOKS.md                               @king4arabs/devops
+
+# Security, privacy, compliance
+/SECURITY.md                               @king4arabs/security
+/COMPLIANCE_READINESS.md                   @king4arabs/security @king4arabs/legal
+
+# UX, a11y, i18n
+/ACCESSIBILITY.md                          @king4arabs/design @king4arabs/frontend
+/I18N_L10N.md                              @king4arabs/design @king4arabs/frontend
+/SKILLS/ux_ui.md                           @king4arabs/design
+/SKILLS/accessibility.md                   @king4arabs/design @king4arabs/frontend
+
+# Product & business
+/BUSINESS_CONTEXT.md                       @king4arabs/product @king4arabs/leadership
+/MARKETING_GROWTH.md                       @king4arabs/marketing @king4arabs/product
+/ANALYTICS.md                              @king4arabs/product @king4arabs/data
+/SKILLS/product.md                         @king4arabs/product
+/SKILLS/business.md                        @king4arabs/leadership
+/SKILLS/marketing.md                       @king4arabs/marketing
+/SKILLS/healthcare_product.md              @king4arabs/clinical @king4arabs/product
+
+# SKILLS — domain leads
+/SKILLS/frontend.md                        @king4arabs/frontend
+/SKILLS/backend.md                         @king4arabs/backend
+/SKILLS/database.md                        @king4arabs/backend
+/SKILLS/devops.md                          @king4arabs/devops
+/SKILLS/security.md                        @king4arabs/security
+/SKILLS/qa.md                              @king4arabs/qa
+/SKILLS/ai.md                              @king4arabs/ai
+/SKILLS/operations.md                      @king4arabs/devops
+/SKILLS/compliance.md                      @king4arabs/security @king4arabs/legal
+/SKILLS/integrations.md                    @king4arabs/backend @king4arabs/devops
+/SKILLS/saudi_gcc_readiness.md             @king4arabs/product @king4arabs/leadership
+/SKILLS/analytics.md                       @king4arabs/data @king4arabs/product
+/SKILLS/observability.md                   @king4arabs/devops
+/SKILLS/privacy_data_governance.md         @king4arabs/security @king4arabs/legal
+/SKILLS/release_management.md              @king4arabs/maintainers
+
+# GitHub config
+/.github/                                  @king4arabs/maintainers

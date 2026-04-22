@@ -1,0 +1,169 @@
+name: Docs validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "**/*.md"
+      - ".github/**"
+      - "SKILLS/**"
+
+permissions:
+  contents: read
+
+jobs:
+  required-files:
+    name: Required repository files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify required top-level docs exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            README.md
+            CHANGELOG.md
+            VERSION.md
+            PROJECT_STATUS.md
+            ROADMAP.md
+            ARCHITECTURE.md
+            DEPLOYMENT.md
+            TESTING.md
+            SECURITY.md
+            OPERATIONS.md
+            BUSINESS_CONTEXT.md
+            MARKETING_GROWTH.md
+            DECISIONS.md
+            TODO.md
+            CONTRIBUTING.md
+            API_DOCUMENTATION.md
+            SDK_DOCUMENTATION.md
+            DATA_MODEL.md
+            ANALYTICS.md
+            OBSERVABILITY.md
+            ACCESSIBILITY.md
+            I18N_L10N.md
+            COMPLIANCE_READINESS.md
+            INCIDENT_RESPONSE.md
+            RELEASE_PROCESS.md
+            RUNBOOKS.md
+            .github/PULL_REQUEST_TEMPLATE.md
+            .github/CODEOWNERS
+            .github/ISSUE_TEMPLATE/bug_report.md
+            .github/ISSUE_TEMPLATE/feature_request.md
+            .github/ISSUE_TEMPLATE/security_report.md
+            .github/ISSUE_TEMPLATE/config.yml
+          )
+          missing=0
+          for f in "${required[@]}"; do
+            if [[ ! -f "$f" ]]; then
+              echo "::error file=$f::Required file is missing: $f"
+              missing=1
+            fi
+          done
+          if [[ $missing -ne 0 ]]; then
+            echo "One or more required files are missing." >&2
+            exit 1
+          fi
+          echo "All required top-level docs present."
+
+      - name: Verify SKILLS framework files exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            SKILLS/README.md
+            SKILLS/frontend.md
+            SKILLS/backend.md
+            SKILLS/database.md
+            SKILLS/devops.md
+            SKILLS/security.md
+            SKILLS/qa.md
+            SKILLS/ai.md
+            SKILLS/product.md
+            SKILLS/business.md
+            SKILLS/marketing.md
+            SKILLS/operations.md
+            SKILLS/compliance.md
+            SKILLS/integrations.md
+            SKILLS/saudi_gcc_readiness.md
+            SKILLS/ux_ui.md
+            SKILLS/accessibility.md
+            SKILLS/analytics.md
+            SKILLS/observability.md
+            SKILLS/healthcare_product.md
+            SKILLS/privacy_data_governance.md
+            SKILLS/release_management.md
+          )
+          missing=0
+          for f in "${required[@]}"; do
+            if [[ ! -f "$f" ]]; then
+              echo "::error file=$f::Required SKILLS file is missing: $f"
+              missing=1
+            fi
+          done
+          if [[ $missing -ne 0 ]]; then exit 1; fi
+          echo "All required SKILLS files present."
+
+      - name: Non-empty docs
+        shell: bash
+        run: |
+          set -euo pipefail
+          fail=0
+          while IFS= read -r -d '' f; do
+            # Require at least 200 bytes of content; placeholder docs should not pass review.
+            size=$(wc -c < "$f")
+            if [[ "$size" -lt 200 ]]; then
+              echo "::error file=$f::Doc is suspiciously small ($size bytes). Expand or remove."
+              fail=1
+            fi
+          done < <(find . \( -path ./.git -prune \) -o -type f \( -name "*.md" \) -print0)
+          if [[ $fail -ne 0 ]]; then exit 1; fi
+
+  markdown-lint:
+    name: Markdown lint (non-blocking)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: |
+            **/*.md
+            !**/node_modules/**
+
+  changelog-updated:
+    name: Changelog updated on PR
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check that CHANGELOG.md is updated for non-doc-only PRs
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          # Fetch full history if shallow.
+          git fetch --no-tags --prune --depth=200 origin "+${BASE_SHA}:refs/remotes/origin/_pr_base" || true
+          changed=$(git diff --name-only "${BASE_SHA}" "${HEAD_SHA}")
+          echo "Changed files:"
+          echo "$changed"
+          # If only docs/CI changed, allow without changelog edit.
+          non_doc=$(echo "$changed" | grep -Ev '^(.*\.md$|\.github/|SKILLS/)' || true)
+          if [[ -z "$non_doc" ]]; then
+            echo "Doc-only / CI-only PR; CHANGELOG update not required."
+            exit 0
+          fi
+          if echo "$changed" | grep -qx "CHANGELOG.md"; then
+            echo "CHANGELOG.md updated."
+            exit 0
+          fi
+          echo "::warning::Non-doc PR did not update CHANGELOG.md. Add an entry under [Unreleased]."
+          # Soft-warn for now; flip to exit 1 once code begins landing in v0.2.0+.

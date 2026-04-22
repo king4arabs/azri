@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔒 Security or privacy issue
+    url: https://github.com/king4arabs/azri/blob/main/SECURITY.md
+    about: Please email security@azri.ai. Do not open a public issue.
+  - name: 💬 Product question / general feedback
+    url: https://azri.ai
+    about: Visit azri.ai for product information and contact options.
