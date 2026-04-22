@@ -11,6 +11,9 @@ All notable changes to AZRI are documented here. The format follows [Keep a Chan
 - `.github/workflows/codeql.yml` — CodeQL static analysis for JavaScript/TypeScript on push, PR, and a weekly schedule; uses `security-extended` + `security-and-quality` query packs. Implements the SECURITY.md "CodeQL + container image scanning in CI" baseline for the current code surface.
 - `.github/workflows/ci.yml` — application-code CI. Runs `typecheck` + unit tests for `@azri/content` on a Node 20 / Node 22 matrix. Future packages (`web/`, `api/`, ...) will extend this workflow.
 
+### Added — Public transparency
+- `AI_TRANSPARENCY.md` — plain-language public statement on how AZRI uses (or does not yet use) AI. Documents today's posture (no production AI features ship in v0.1.0), the nine principles that will not be compromised, the data-handling model for future AI features, bias/safety/limitations acknowledgements, and how users can ask questions, opt out, or report concerns. Linked from `README.md` and added to the required-files check in `docs-validation.yml`.
+
 ### Changed
 - `SECURITY.md` — added an explicit **`.env.example` policy** under *Secrets*: no real values, every key documented, no hidden keys, classification-grouped, enforced at first scaffold.
 - `DATA_MODEL.md` — added a **KSA classification mapping** cross-referencing the internal 5-tier classification with PDPL categories, NDMO/SDAIA classification tiers, residency expectations (`me-south-1` default + in-Kingdom institutional option per ADR-0007), consent / lawful basis, and minimum controls. Mapping is explicitly marked as internal handling guidance pending Saudi privacy/healthcare counsel review (per `COMPLIANCE_READINESS.md` open items).
