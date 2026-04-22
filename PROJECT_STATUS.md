@@ -1,7 +1,7 @@
 # PROJECT_STATUS
 
 > Live audit of the AZRI repository. Severity ratings are honest and based on observable repository evidence.
-> Last updated: **2026-04-22** (Unreleased — content system landed).
+> Last updated: **2026-04-22** (Unreleased — content system + baseline CI / CodeQL / Dependabot landed).
 
 ## Maturity assessment (executive summary)
 
@@ -9,8 +9,8 @@
 | --- | --- | --- |
 | Repository operating system | **L2 — Defined** (just established in v0.1.0) | Docs and SKILLS framework now exist; need to be lived. |
 | Application code | **L1 — Initial** | Shared bilingual content package (`@azri/content`) is the first code committed; no UI surfaces yet. |
-| CI/CD | **L1 — Initial** | Only docs validation workflow. No build/test/deploy. |
-| Security baseline | **L1 — Initial** | Policy documented; no code surface to harden yet. |
+| CI/CD | **L2 — Defined** | Docs validation + application CI (`@azri/content` typecheck + tests on Node 20/22 matrix) + CodeQL (JS/TS, security-extended). Build/deploy pipelines still to land with web/api scaffolds. |
+| Security baseline | **L2 — Defined** | Policy documented; automated baseline in place (CodeQL static analysis + Dependabot weekly updates + `.env.example` policy); repo-admin settings (secret scanning, branch protection) still to enable. |
 | Privacy / compliance | **L1 — Initial** | Posture written; not certified. |
 | Product surfaces | **L0 — Not in repo** | Public site exists at `azri.ai`; not in this repository. |
 | Observability | **L0 — None** | To establish in v0.3.0. |
