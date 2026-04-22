@@ -12,17 +12,17 @@
 - [ ] Add `security@azri.ai` mailbox + GitHub Security Advisories enabled *(repo-admin action; mailbox provisioning outside code)*.
 - [x] Enable Dependabot (`.github/dependabot.yml`) + CodeQL (`.github/workflows/codeql.yml`).
 - [ ] Enable GitHub secret scanning + push protection on the repository *(repo-admin setting; not expressible in-repo)*.
-- [x] Define `.env.example` policy (no real values, every key documented) — see `SECURITY.md#env-example-policy`. Enforcement applied at first scaffold.
+- [x] Define `.env.example` policy (no real values, every key documented) — see `SECURITY.md#env-example-policy`. Enforcement applied at first scaffold (`web/.env.example`).
 - [ ] Bring KSA data classification table into `DATA_MODEL.md` once first schema is drafted.
 
 ### Priority 2 — platform clarity
-- [ ] Scaffold `web/` (Next.js + Tailwind + shadcn/ui, Arabic-first, RTL).
+- [x] Scaffold `web/` (Next.js + Tailwind + shadcn/ui, Arabic-first, RTL). _(shadcn/ui deferred — Tailwind v4 in place.)_
 - [ ] Scaffold `api/` (NestJS or Fastify) with health endpoint, OpenAPI, structured logging.
 - [ ] CI: lint, type-check, unit, build matrix; axe; lighthouse-CI.
   - [x] Type-check + unit tests for `@azri/content` on a Node matrix (`.github/workflows/ci.yml`).
-  - [ ] Lint step (awaiting repo-wide linter choice once web/api land).
-  - [ ] Build matrix for web + api (awaiting scaffolds).
-  - [ ] axe + lighthouse-CI (awaiting UI surface).
+  - [x] Lint + type-check + build for `web/` (`.github/workflows/web-ci.yml`).
+  - [ ] Build matrix for api (awaiting scaffold).
+  - [ ] axe + lighthouse-CI (awaiting first reviewable UI surface).
 - [ ] Sentry + PostHog + Plausible/GA wired with PHI exclusions.
 - [x] PR template enforcement for healthcare wording check *(embedded in `.github/PULL_REQUEST_TEMPLATE.md` — required checklist for user-visible copy)*.
 
