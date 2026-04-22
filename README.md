@@ -48,6 +48,7 @@ This repository is at **v0.1.0 — Repository Operating System Baseline**. There
 - ✅ SKILLS framework (cross-functional standards library)
 - ✅ GitHub PR/issue templates, CODEOWNERS, docs validation workflow
 - ✅ Versioning, changelog, decisions log, roadmap
+- ✅ Bilingual content system — [`packages/content/`](./packages/content) (`@azri/content`); see [`CONTENT_SYSTEM.md`](./CONTENT_SYSTEM.md)
 - ⏳ Application scaffolding (web, mobile, API) — see [`ROADMAP.md`](./ROADMAP.md)
 - ⏳ Authentication, payments, analytics, observability wiring — see [`TODO.md`](./TODO.md)
 
@@ -79,6 +80,7 @@ These documents are the source of truth for *how AZRI is built, run, sold, and g
 | [`COMPLIANCE_READINESS.md`](./COMPLIANCE_READINESS.md) | KSA / GCC / global posture (no fake claims) |
 | [`ACCESSIBILITY.md`](./ACCESSIBILITY.md) | WCAG, assistive tech, healthcare a11y |
 | [`I18N_L10N.md`](./I18N_L10N.md) | Arabic-first, RTL/LTR, locale strategy |
+| [`CONTENT_SYSTEM.md`](./CONTENT_SYSTEM.md) | Bilingual content architecture (`@azri/content`), page bindings, authoring workflow |
 | [`ANALYTICS.md`](./ANALYTICS.md) | Event taxonomy, growth & product metrics |
 | [`BUSINESS_CONTEXT.md`](./BUSINESS_CONTEXT.md) | Personas, journeys, value, pricing logic |
 | [`MARKETING_GROWTH.md`](./MARKETING_GROWTH.md) | Acquisition, conversion, content strategy |

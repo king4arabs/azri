@@ -57,6 +57,27 @@
 - **Decision (proposed):** Start on ECS Fargate for v0.2.0–v0.3.0 (operational simplicity), revisit EKS at v0.5.0 if institutional scale demands richer platform features.
 - **Consequences:** Some Kubernetes-only tooling deferred; portability via OpenTelemetry + container-native code.
 
+## ADR-0010 — Centralized bilingual content package (`@azri/content`)
+- **Status:** accepted (2026-04-22, Unreleased / planned for `v0.2.0`)
+- **Context:** AZRI is bilingual (Arabic/English) and runs across at least five surfaces: marketing website, patient app, doctor dashboard, institutional SaaS platform, and a wearable companion. Without a single source of truth, copy will drift between surfaces, medical wording rules will be enforced inconsistently, and translators will be asked to update the same string in multiple repos. The bilingual content brief delivered in this PR is large (~27 sections, every string in `ar` + `en`) and demands a maintainable schema rather than scattered inline strings.
+- **Decision:** Introduce a private workspace package, `@azri/content`, at `packages/content/`. It is **framework-agnostic** TypeScript (no React / Next / Expo / Tailwind imports), with:
+  - a strict typed schema (`src/types.ts`),
+  - the bilingual data (`src/data/azri.ts`),
+  - locale + RTL/LTR helpers (`src/locale.ts`),
+  - declarative web/app page bindings (`src/page-bindings.ts`), and
+  - sanity tests using the built-in `node:test` runner via `tsx` (no extra runtime deps).
+
+  Every surface — web, patient app, doctor dashboard, institutional platform, wearable — imports from this package. CTAs, FAQ entries, sitemap entries, and footer links use **stable `id` fields** so renaming an `id` is a breaking (MAJOR) change.
+- **Consequences:**
+  - + One source of truth for bilingual marketing + product copy.
+  - + Schema enforces both `ar` and `en` for every string at compile time.
+  - + Page bindings let surfaces share "what does this page render" without duplicating the answer.
+  - + Authoring is simple: edit one file, add a CHANGELOG entry, run `npm test`.
+  - + Healthcare-wording rules are enforced via `SKILLS/healthcare_product.md` and codified in the package's authoring comments.
+  - − A future surface that wants a fundamentally different content shape (e.g. a clinician-only knowledge base) will need its own package; this one is intentionally marketing- and product-shell-flavored.
+  - − Renaming a CTA / FAQ / sitemap `id` is a breaking change for any surface that targets it; coordination is required.
+  - − Adds a small TypeScript toolchain (`tsc`, `tsx`, `@types/node`) at `packages/content/` only — does not yet require monorepo tooling at the repo root.
+
 ---
 
 ## How to add a new ADR
