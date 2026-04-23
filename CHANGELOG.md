@@ -6,10 +6,18 @@ All notable changes to AZRI are documented here. The format follows [Keep a Chan
 
 ## [Unreleased]
 
+### Added — Application scaffolds (planned for `v0.2.0`)
+- `api/` — **`@azri/api`** Fastify 5 + TypeScript scaffold. Endpoints: `GET /healthz` (liveness), `GET /readyz` (readiness), `GET /version`, `GET /docs` (Swagger UI, dev/staging only). Helmet, CORS allowlist, rate limiting, Pino structured logs with PHI-adjacent redaction (`authorization`, `cookie`, `x-api-key`, `body.password`, `body.token`), request-ID honoring/generation, multi-stage Dockerfile, non-root runtime user. No auth / no DB / no PHI (blocked on ADR-0004 + ADR-0005). Smoke tests via `fastify.inject` under `node:test`. Policy-compliant `.env.example`.
+- `web/` — **`@azri/web`** Next.js 15 App Router + React 19 + Tailwind v4 scaffold. Arabic-first: `/` redirects to `/ar`; `app/[locale]/…` routes render bilingual copy from `@azri/content` via `pick(field, locale)`. Pages: home (hero + why-AZRI + Apple-Watch readiness), pricing (four plans). Language switcher, medical-disclaimer footer. Security headers (`X-Content-Type-Options`, `Referrer-Policy`, conservative `Permissions-Policy`). Policy-compliant `.env.example`.
+- `ios/` — Swift sources for the **iPhone patient companion (SwiftUI, iOS 17+)** and the **Apple Watch companion (SwiftUI + WatchKit, watchOS 10+)**. HealthKit read-only access to heart rate / HRV / SpO₂ / steps — *no* write types. Typed API client (`APIClient` → `@azri/api` `/version`), `WatchConnectivityService` bridge (no PHI), bilingual `AzriBrand` + emergency-line helpers, entitlements and Info.plist templates, `BUILDING.md` walk-through. **Scaffold only — requires Xcode on macOS to build.** Linux CI does not attempt an iOS build; a macOS runner lands as a follow-up.
+
+### Added — ADRs
+- `DECISIONS.md` — **ADR-0011** (web framework: Next.js App Router + React 19 + Tailwind v4), **ADR-0012** (core API framework: Fastify 5 + TypeScript + Pino + OpenAPI), **ADR-0013** (patient mobile + Apple Watch companion: SwiftUI + HealthKit read-only).
+
 ### Added — Repository hygiene & CI (planned for `v0.2.0`)
-- `.github/dependabot.yml` — weekly dependency updates for `github-actions` and `packages/content`, minor/patch grouped, major updates individually, with dedicated labels.
+- `.github/dependabot.yml` — weekly dependency updates for `github-actions`, `packages/content`, `api`, and `web`, minor/patch grouped, major updates individually, with dedicated labels.
 - `.github/workflows/codeql.yml` — CodeQL static analysis for JavaScript/TypeScript on push, PR, and a weekly schedule; uses `security-extended` + `security-and-quality` query packs. Implements the SECURITY.md "CodeQL + container image scanning in CI" baseline for the current code surface.
-- `.github/workflows/ci.yml` — application-code CI. Runs `typecheck` + unit tests for `@azri/content` on a Node 20 / Node 22 matrix. Future packages (`web/`, `api/`, ...) will extend this workflow.
+- `.github/workflows/ci.yml` — application-code CI. Runs `typecheck` + unit tests for `@azri/content`, `typecheck` + build + unit tests for `@azri/api`, and `typecheck` + build for `@azri/web`, all on a Node 20 / Node 22 matrix. iOS builds require macOS + Xcode and are not yet wired into CI.
 
 ### Added — Public transparency
 - `AI_TRANSPARENCY.md` — plain-language public statement on how AZRI uses (or does not yet use) AI. Documents today's posture (no production AI features ship in v0.1.0), the nine principles that will not be compromised, the data-handling model for future AI features, bias/safety/limitations acknowledgements, and how users can ask questions, opt out, or report concerns. Linked from `README.md` and added to the required-files check in `docs-validation.yml`.

@@ -1,22 +1,22 @@
 # PROJECT_STATUS
 
 > Live audit of the AZRI repository. Severity ratings are honest and based on observable repository evidence.
-> Last updated: **2026-04-22** (Unreleased — content system + baseline CI / CodeQL / Dependabot landed).
+> Last updated: **2026-04-23** (Unreleased — web scaffold, api scaffold, iOS + Apple Watch Swift scaffold landed).
 
 ## Maturity assessment (executive summary)
 
 | Domain | Maturity | Notes |
 | --- | --- | --- |
-| Repository operating system | **L2 — Defined** (just established in v0.1.0) | Docs and SKILLS framework now exist; need to be lived. |
-| Application code | **L1 — Initial** | Shared bilingual content package (`@azri/content`) is the first code committed; no UI surfaces yet. |
-| CI/CD | **L2 — Defined** | Docs validation + application CI (`@azri/content` typecheck + tests on Node 20/22 matrix) + CodeQL (JS/TS, security-extended). Build/deploy pipelines still to land with web/api scaffolds. |
-| Security baseline | **L2 — Defined** | Policy documented; automated baseline in place (CodeQL static analysis + Dependabot weekly updates + `.env.example` policy); repo-admin settings (secret scanning, branch protection) still to enable. |
-| Privacy / compliance | **L1 — Initial** | Posture written; not certified. |
-| Product surfaces | **L0 — Not in repo** | Public site exists at `azri.ai`; not in this repository. |
-| Observability | **L0 — None** | To establish in v0.3.0. |
+| Repository operating system | **L2 — Defined** (established in v0.1.0) | Docs and SKILLS framework now exist; need to be lived. |
+| Application code | **L2 — Defined** | `@azri/content`, `@azri/api` (Fastify scaffold), `@azri/web` (Next.js App Router scaffold), `ios/` (SwiftUI + WatchKit + HealthKit scaffold). No auth, no DB, no PHI yet. |
+| CI/CD | **L2 — Defined** | Docs validation + application CI (`content` typecheck+tests, `api` typecheck+build+tests, `web` typecheck+build — all on Node 20/22 matrix) + CodeQL + Dependabot for `github-actions` / `content` / `api` / `web`. iOS CI still to add once a macOS runner is provisioned. |
+| Security baseline | **L2 — Defined** | Policy documented; automated baseline in place (CodeQL + Dependabot + `.env.example` policy enforced in `api/` and `web/`); API redacts PHI-adjacent fields by default; repo-admin settings (secret scanning, branch protection) still to enable. |
+| Privacy / compliance | **L2 — Defined** | Bilingual plain-language privacy notice draft (`PRIVACY_NOTICE.md`), AI transparency page (`AI_TRANSPARENCY.md`), KSA classification mapping in `DATA_MODEL.md`. Not certified; awaiting counsel review before v0.7.0. |
+| Product surfaces | **L1 — Initial** | Marketing home + pricing rendered from `@azri/content` on `web/`. Public site at `azri.ai` is still the production surface; in-repo scaffold is the migration target. |
+| Observability | **L1 — Initial** | `@azri/api` emits structured pino logs with request IDs and PHI-adjacent field redaction. No metrics/traces wired yet. |
 | Analytics | **L1 — Defined** | Event taxonomy drafted; not wired. |
-| i18n / RTL | **L2 — Defined** | Strategy + bilingual content schema + RTL/LTR helpers in place; awaiting UI consumer. |
-| Accessibility | **L1 — Defined** | WCAG 2.2 AA target documented; no UI yet. |
+| i18n / RTL | **L3 — Repeatable** | Strategy + bilingual content schema + RTL/LTR helpers + live web consumer (`[locale]` routes, Arabic-first default, language switcher, logical-CSS reviewer hint) + Swift-side `AzriLocale` helpers. |
+| Accessibility | **L1 — Defined** | WCAG 2.2 AA target documented; semantic HTML in place in `web/` but no axe/lighthouse gate in CI yet. |
 
 Maturity scale: L0 None → L1 Initial → L2 Defined → L3 Repeatable → L4 Measured → L5 Optimized.
 

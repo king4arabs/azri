@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Merge these keys into the AzriApp target's Info.plist in Xcode.
+  Every description is user-facing and must be plain language, bilingual
+  where possible (system shows the user's locale). Keep wording aligned
+  with PRIVACY_NOTICE.md and SKILLS/healthcare_product.md.
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleDisplayName</key>
+  <string>AZRI</string>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>ar_SA</string>
+  <key>CFBundleLocalizations</key>
+  <array>
+    <string>ar</string>
+    <string>en</string>
+  </array>
+
+  <!-- HealthKit — read-only. Write descriptions intentionally omitted. -->
+  <key>NSHealthShareUsageDescription</key>
+  <string>AZRI تقرأ مؤشرات صحية عامة (النبض، تذبذب النبض، تشبع الأوكسجين، عدد الخطوات) لدعم المتابعة والتنبيه المبكر. لا تُستخدم هذه البيانات لتشخيص أي حالة. / AZRI reads general health signals (heart rate, HRV, blood-oxygen, steps) to support monitoring and early awareness. This data is not used to diagnose any condition.</string>
+
+  <!-- Explicitly disabled in v0.4.0 per clinical posture. -->
+  <!--
+  <key>NSHealthUpdateUsageDescription</key>
+  <string>AZRI does not write to HealthKit.</string>
+  -->
+
+  <!-- Background modes: document the runtime need, leave disabled until the
+       first real passive-observation feature needs them. -->
+  <!--
+  <key>UIBackgroundModes</key>
+  <array>
+    <string>fetch</string>
+    <string>processing</string>
+  </array>
+  -->
+
+  <!-- Future: AZRI_API_BASE_URL overrides APIClient.baseURL in Release.
+       Injected by Xcode build settings; leave empty for the scaffold. -->
+  <key>AZRI_API_BASE_URL</key>
+  <string></string>
+</dict>
+</plist>

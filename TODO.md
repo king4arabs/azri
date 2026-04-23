@@ -16,20 +16,23 @@
 - [x] Bring KSA data classification table into `DATA_MODEL.md` (PDPL + NDMO mapping + residency + consent; *legal review still required before v0.7.0 launch*).
 
 ### Priority 2 — platform clarity
-- [ ] Scaffold `web/` (Next.js + Tailwind + shadcn/ui, Arabic-first, RTL).
-- [ ] Scaffold `api/` (NestJS or Fastify) with health endpoint, OpenAPI, structured logging.
+- [x] Scaffold `web/` (Next.js App Router + Tailwind v4, Arabic-first, RTL) — see `web/` and ADR-0011. Consumes `@azri/content`; `/` → `/ar`.
+- [x] Scaffold `api/` (Fastify 5 + TS + Pino + OpenAPI) — see `api/` and ADR-0012. Health/readiness/version only; no auth, no DB yet.
 - [ ] CI: lint, type-check, unit, build matrix; axe; lighthouse-CI.
   - [x] Type-check + unit tests for `@azri/content` on a Node matrix (`.github/workflows/ci.yml`).
-  - [ ] Lint step (awaiting repo-wide linter choice once web/api land).
-  - [ ] Build matrix for web + api (awaiting scaffolds).
-  - [ ] axe + lighthouse-CI (awaiting UI surface).
+  - [x] Type-check + build for `@azri/web` on a Node 20/22 matrix.
+  - [x] Type-check + build + unit tests for `@azri/api` on a Node 20/22 matrix.
+  - [ ] Lint step (awaiting repo-wide linter choice — ESLint flat config next).
+  - [ ] axe + lighthouse-CI (awaiting first interactive UI surface beyond the static marketing scaffold).
+  - [ ] iOS / watchOS build on a macOS runner (awaits Xcode Cloud or self-hosted mac; tracked in "Discovered while doing v0.2.0").
 - [ ] Sentry + PostHog + Plausible/GA wired with PHI exclusions.
 - [x] PR template enforcement for healthcare wording check *(embedded in `.github/PULL_REQUEST_TEMPLATE.md` — required checklist for user-visible copy)*.
 
 ### Priority 3 — product clarity
-- [ ] Marketing pages skeleton (home, pricing, demo, contact, trust) *(blocked on v0.2.0 web scaffold; the bilingual content and page bindings are already shipped in `@azri/content`)*.
+- [x] Marketing pages skeleton — `web/` scaffold renders `/ar` and `/en` home + pricing from `@azri/content`. Remaining marketing surfaces (demo, contact, trust, about, solutions, …) have bindings in `@azri/content/page-bindings` but no renderers yet; follow-up task below.
   - [x] Bilingual content + page bindings for marketing pages in `@azri/content` (`CONTENT_SYSTEM.md`).
-  - [ ] Next.js consumer that actually renders the pages — awaits Priority 2 web scaffold.
+  - [x] Next.js consumer (`web/`) rendering hero, whyAzri, Apple Watch readiness, pricing.
+  - [ ] Renderers for remaining page bindings (about, solutions, patientsFamilies, doctors, institutions, technology, faq, contact).
 - [ ] Pricing copy reflects multi-tier offering (`BUSINESS_CONTEXT.md`) *(blocked on marketing decision; see `BUSINESS_CONTEXT.md#current-state-vs-target`)*.
   - Today's `@azri/content` pricing mirrors the live `azri.ai` site (4 tiers: basic / advanced / insuranceDoctors / enterprise).
   - `BUSINESS_CONTEXT.md` defines an aspirational 5-tier intent (Free / Care+ / Doctor / Clinic / Enterprise).
@@ -47,7 +50,13 @@
 
 ## Later (v0.4.0+)
 
-- [ ] iOS app + HealthKit + Apple Watch companion.
+- [ ] iOS app + HealthKit + Apple Watch companion — full production build, App Store submission, and clinical-advisor review.
+  - [x] Swift source scaffold in `ios/` (SwiftUI + WatchKit + HealthKit read-only) — ADR-0013; `ios/BUILDING.md` documents how to regenerate the Xcode project locally.
+  - [ ] macOS CI runner (Xcode Cloud or self-hosted) running `xcodebuild` on each PR.
+  - [ ] Real bundle identifier, Team ID, provisioning profiles.
+  - [ ] Live connection to `@azri/api` under ADR-0004 auth.
+  - [ ] App Privacy questionnaire answered from `PRIVACY_NOTICE.md`.
+  - [ ] Arabic-first App Store metadata reviewed by native KSA speaker.
 - [ ] Caregiver consent-scoped invite flow.
 - [ ] Institutional tenancy: SSO, RBAC, billing.
 - [ ] AI-assisted clinical summaries with strict guardrails.
@@ -62,6 +71,13 @@
 - [ ] Quarterly review of all SKILLS files.
 - [ ] Quarterly access review.
 - [ ] Annual threat-model refresh.
+
+## Discovered while doing v0.2.0 scaffolds
+
+- [ ] ESLint flat-config policy for the repository (`@azri/content`, `@azri/api`, `@azri/web`) so the `lint` step in `.github/workflows/ci.yml` can switch from pending to enforced.
+- [ ] macOS runner for iOS CI (Xcode Cloud vs self-hosted mac); scope budget before v0.4.0.
+- [ ] Root workspace manifest (npm/pnpm/turbo) now that three local packages share dependencies — evaluate when a fourth lands.
+- [ ] `packages/ui` materialisation (shadcn/ui copy-in) when the first non-trivial interactive flow lands in `web/`.
 
 ## Discovered while doing v0.1.0
 

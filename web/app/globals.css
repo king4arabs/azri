@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+/* Design tokens. Kept minimal in the v0.1.0 scaffold; expand when shadcn/ui
+   lands per ADR-0006. */
+:root {
+  --azri-bg: #ffffff;
+  --azri-fg: #111827;
+  --azri-muted: #6b7280;
+  --azri-accent: #0e7c86;
+  --azri-surface: #f3f4f6;
+}
+
+html {
+  color: var(--azri-fg);
+  background: var(--azri-bg);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+    "Noto Naskh Arabic", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Arabic-first typography: slightly larger line-height works better for
+   Arabic glyphs. Applied when the document direction is RTL. */
+html[dir="rtl"] body {
+  line-height: 1.75;
+}
+
+/* Logical-property guardrails: forbid hard-coded *-left / *-right in
+   reviewer muscle memory by making them obviously ugly when they slip in. */
+*[style*="margin-left"], *[style*="margin-right"],
+*[style*="padding-left"], *[style*="padding-right"] {
+  outline: 1px dashed #ef4444;
+}

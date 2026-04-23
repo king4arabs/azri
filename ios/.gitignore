@@ -1,0 +1,21 @@
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+*.xcuserstate
+*.xcuserdatad/
+Build/
+DerivedData/
+
+# Swift Package Manager
+.swiftpm/
+Packages/
+Package.resolved
+.build/
+
+# Fastlane / bundler
+.bundle/
+vendor/
+
+# macOS
+.DS_Store

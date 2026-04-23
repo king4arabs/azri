@@ -11,8 +11,8 @@ A production-grade, medically credible, security-hardened, bilingual, regionally
 ## Phase map
 
 ```
-v0.1.0  Repository OS baseline           ← we are here
-v0.2.0  Web foundation & auth
+v0.1.0  Repository OS baseline            done
+v0.2.0  Web foundation & auth             ← we are here (scaffolds landed; auth pending ADR-0004)
 v0.3.0  Doctor dashboard MVP & API
 v0.4.0  Patient mobile app + HealthKit + Apple Watch
 v0.5.0  Institutional SaaS (RBAC, audit, billing)
@@ -28,14 +28,21 @@ v1.0.0  General availability
 - **Outcome:** Future contributors have a clear standard to follow.
 
 ## v0.2.0 — Web foundation & auth
-- Next.js (App Router) scaffold with Tailwind + shadcn/ui, Arabic-first + RTL.
-- Marketing pages + pricing + contact/demo (or interim integration with `azri.ai`).
-- Auth provider chosen and wired (ADR-0004).
-- API skeleton (Node or FastAPI) with OpenAPI, healthchecks, rate limiting.
-- CI: lint, type-check, unit tests, build matrix, axe, lighthouse-CI.
+
+Scaffolds landed:
+- `web/` — Next.js 15 App Router + Tailwind v4, Arabic-first with RTL, consumes `@azri/content`. Home + pricing rendered. (ADR-0011)
+- `api/` — Fastify 5 + TS + Pino + OpenAPI; health/readiness/version; CORS, helmet, rate limiting; PHI-redacted structured logs. (ADR-0012)
+- `ios/` — SwiftUI iPhone + Apple Watch companion with read-only HealthKit. (ADR-0013)
+- CI: type-check + build + tests matrix for `content`/`api`/`web` on Node 20/22.
+- `.env.example` policy applied at first scaffold (`api/.env.example`, `web/.env.example`).
+
+Still open:
+- Auth provider chosen and wired (ADR-0004) — **blocking user-facing surfaces.**
+- axe / Lighthouse-CI gate (awaits first interactive UI).
 - Sentry baseline + PostHog + privacy-safe marketing analytics.
-- `.env.example` + secrets policy enforced.
-- **Outcome:** A safe, observable, bilingual web foundation.
+- Repo-wide ESLint flat config.
+- iOS CI on a macOS runner.
+- **Outcome:** A safe, observable, bilingual web foundation — partial; auth is the last blocker.
 
 ## v0.3.0 — Doctor dashboard MVP & API
 - Doctor authentication, RBAC, patient list, episode timeline, report export (PDF).

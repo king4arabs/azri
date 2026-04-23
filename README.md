@@ -122,14 +122,23 @@ azri/
 ├── SKILLS/                    ← cross-functional standards library (21+ disciplines)
 ├── packages/
 │   └── content/               ← @azri/content — bilingual content source of truth
+├── api/                       ← @azri/api — Fastify scaffold (health, version, OpenAPI)
+├── web/                       ← @azri/web — Next.js App Router scaffold, Arabic-first, RTL
+├── ios/                       ← SwiftUI iPhone app + Apple Watch companion scaffold
 └── .github/
-    ├── workflows/             ← docs validation CI
+    ├── workflows/             ← docs validation, CI (content/api/web), CodeQL
+    ├── dependabot.yml         ← weekly dep updates (actions + content + api + web)
     ├── ISSUE_TEMPLATE/        ← bug, feature, security templates
     ├── PULL_REQUEST_TEMPLATE.md
     └── CODEOWNERS
 ```
 
-Application source (web, mobile, API, infra) lands progressively from **v0.2.0**. See [`ROADMAP.md`](./ROADMAP.md).
+Application source arrives progressively:
+- **v0.1.0** — docs + `@azri/content`.
+- **v0.2.0 scaffolds (here)** — `api/`, `web/`, `ios/` (iOS requires Xcode to build; see [`ios/BUILDING.md`](./ios/BUILDING.md)).
+- **v0.2.0+** — auth (ADR-0004), database (ADR-0005), doctor dashboard, AI (v0.6.0).
+
+See [`ROADMAP.md`](./ROADMAP.md).
 
 ---
 
