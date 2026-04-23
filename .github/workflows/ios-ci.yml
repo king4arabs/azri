@@ -1,0 +1,38 @@
+name: iOS / watchOS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "apps/ios/**"
+      - ".github/workflows/ios-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  ios:
+    name: Swift build + test (AzriShared package)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show toolchain
+        run: swift --version
+      - name: Build & test the shared Swift package
+        working-directory: apps/ios
+        run: swift test
+      # Building the Xcode app/Watch targets requires `xcodegen`, which is
+      # provisioned on macos-15 runners via Homebrew. Kept as a separate
+      # step so the package tests run independently.
+      - name: Generate Xcode project
+        working-directory: apps/ios
+        run: |
+          if ! command -v xcodegen >/dev/null 2>&1; then brew install xcodegen; fi
+          xcodegen generate
+      - name: Xcode build (iOS Simulator)
+        working-directory: apps/ios
+        run: |
+          xcodebuild -project Azri.xcodeproj -scheme Azri \
+            -destination "platform=iOS Simulator,name=iPhone 15" \
+            build

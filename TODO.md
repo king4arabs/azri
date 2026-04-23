@@ -47,8 +47,19 @@
 
 ## Later (v0.4.0+)
 
-- [ ] iOS app + HealthKit + Apple Watch companion.
-- [ ] Caregiver consent-scoped invite flow.
+- [x] Shared contracts package (`@azri/contracts`) wired into web, mobile, iOS, Wear OS, Whoop adapter, and API.
+- [x] Fastify ingestion API skeleton with idempotent watch ingest, Whoop webhook (HMAC + replay-safe), episodes, and alerts. (Real persistence + auth wiring still pending.)
+- [x] iOS app (SwiftUI) + watchOS companion skeleton with HealthKit authorizer + offline ingest queue. (Xcode project lands via XcodeGen.)
+- [x] Wear OS companion skeleton with Health Services capability discovery, foreground service, and ingest queue.
+- [x] Whoop OAuth2 + webhook + recovery / sleep / cycle normalisation.
+- [x] Web `/app/*` patient routes (episode log, trends, alerts, caregivers) + `/console` doctor preview.
+- [x] Expo / React Native patient app skeleton with bilingual + RTL flip.
+- [x] CI lanes for contracts, api, whoop, wear-os, ios, and mobile.
+- [ ] Replace in-memory `IdempotencyStore` with Redis-backed implementation before any production deploy.
+- [ ] Persist watch + Whoop events to Postgres with row-level security; emit audit log rows.
+- [ ] Wire ADR-0004 auth provider into API + watch ingest (per-install bearer tokens).
+- [ ] Push fan-out service for `alert.raised` (APNs, FCM, watchOS / Wear OS).
+- [ ] Caregiver consent persistence + invite + revoke flow (currently UI scaffold only).
 - [ ] Institutional tenancy: SSO, RBAC, billing.
 - [ ] AI-assisted clinical summaries with strict guardrails.
 - [ ] KSA pen-test #1.

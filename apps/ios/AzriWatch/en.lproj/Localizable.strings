@@ -1,0 +1,6 @@
+"watch.alert.title" = "AZRI alert";
+"watch.alert.body" = "Are you OK?";
+"watch.alert.ack" = "I'm OK";
+"watch.episode.prompt" = "Log how you feel now";
+"watch.episode.log" = "Log";
+"watch.episode.sent" = "Sent";

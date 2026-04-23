@@ -121,9 +121,18 @@ azri/
 ├── *.md                       ← repository operating system docs (see below)
 ├── SKILLS/                    ← cross-functional standards library (21+ disciplines)
 ├── packages/
-│   └── content/               ← @azri/content — bilingual content source of truth
+│   ├── content/               ← @azri/content — bilingual content source of truth
+│   └── contracts/             ← @azri/contracts — Zod-validated wire schemas (shared)
+├── api/                       ← @azri/api — Fastify ingestion + core API
+├── integrations/
+│   └── whoop/                 ← @azri/whoop — server-side Whoop OAuth + webhook adapter
+├── web/                       ← Next.js marketing site + /app patient routes + /console preview
+├── apps/
+│   ├── mobile/                ← @azri/mobile — Expo + React Native patient app
+│   ├── ios/                   ← Swift Package + iPhone + watchOS app (HealthKit + Watch)
+│   └── wear-os/               ← Kotlin + Compose Wear OS app (Samsung Galaxy Watch 4+)
 └── .github/
-    ├── workflows/             ← docs validation CI
+    ├── workflows/             ← docs validation + per-surface CI lanes
     ├── ISSUE_TEMPLATE/        ← bug, feature, security templates
     ├── PULL_REQUEST_TEMPLATE.md
     └── CODEOWNERS

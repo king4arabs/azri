@@ -1,0 +1,31 @@
+{
+  "name": "@azri/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared TypeScript + Zod contracts for AZRI biosignals, episodes, alerts, watch ingestion events, and Whoop adapter types. Single source of truth for data shape across web, mobile, watch, and API surfaces.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "src"],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/__tests__/*.test.ts",
+    "build": "tsc",
+    "prepare": "tsc"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "tsx": "^4.19.2",
+    "typescript": "^5"
+  }
+}

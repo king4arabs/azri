@@ -1,0 +1,4 @@
+"NSHealthShareUsageDescription" = "AZRI uses your heart rate, HRV, sleep, and movement data to support epilepsy monitoring and to alert your trusted caregivers.";
+"NSHealthUpdateUsageDescription" = "AZRI does not write to HealthKit at this time.";
+"NSMotionUsageDescription" = "AZRI uses motion data on your Apple Watch to help detect possible falls and unusual activity patterns.";
+"NSUserNotificationsUsageDescription" = "AZRI sends you alerts and reminders related to your care plan.";

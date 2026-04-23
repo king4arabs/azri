@@ -57,3 +57,35 @@
 
 - Whether to publish a partner-only npm registry initially (private) before public release.
 - SwiftPM hosting under a custom org.
+
+## Wearables — what ships in v0.4.0
+
+Wearable surfaces are not packaged as third-party SDKs in v0.4.0; they are
+*first-party clients* of the AZRI ingestion API. The wire format they
+emit is defined by [`@azri/contracts`](./packages/contracts/) and stays
+stable across surfaces.
+
+| Surface | Code path | Wire spec | Build tooling |
+| --- | --- | --- | --- |
+| Apple Watch + iPhone (HealthKit) | `apps/ios/` | `apps/ios/AzriShared/Models/ContractTypes.swift` mirrors `@azri/contracts` | Xcode 16+, XcodeGen (`apps/ios/project.yml`) |
+| Wear OS (Samsung Galaxy Watch 4+, Pixel Watch) | `apps/wear-os/` | `apps/wear-os/app/src/main/java/ai/azri/wear/ContractTypes.kt` mirrors `@azri/contracts` | Android Studio Hedgehog+, Gradle 8.10+ |
+| Whoop strap | `integrations/whoop/` (server-side) | Imports `@azri/contracts` directly | Node 22+ |
+| Patient phone (Expo) | `apps/mobile/` | Imports `@azri/contracts` directly | Expo 52, Node 22+ |
+| Patient web (`/app/*`) | `web/app/app/` | Imports `@azri/contracts` directly | Next.js 16, Node 22+ |
+
+### Samsung legacy (Tizen)
+
+Older Galaxy Watches (Watch 3 and earlier) run Tizen. AZRI does **not**
+ship a Tizen client. The patient app on the phone detects the unsupported
+model, shows a polite message, and falls back to bridging signals from
+the phone's Health Connect / HealthKit. This posture is recorded in
+ADR-0009 and tracked in `OPERATIONS.md`.
+
+### Schema-mirror discipline
+
+When `@azri/contracts` ships a MAJOR version, the Swift mirror
+(`apps/ios/AzriShared/Models/ContractTypes.swift`) and the Kotlin mirror
+(`apps/wear-os/app/src/main/java/ai/azri/wear/ContractTypes.kt`) MUST
+update in the same PR. The `SCHEMA_VERSION` constant on each side is
+checked by CI against the canonical value in
+`packages/contracts/src/version.ts`.

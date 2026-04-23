@@ -1,0 +1,30 @@
+{
+  "name": "@azri/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AZRI patient mobile app (Expo + React Native). Bilingual + RTL flip; consumes @azri/content and @azri/contracts.",
+  "license": "UNLICENSED",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "ios": "expo start --ios",
+    "android": "expo start --android",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/__tests__/*.test.ts"
+  },
+  "dependencies": {
+    "@azri/content": "*",
+    "@azri/contracts": "*",
+    "expo": "~52.0.0",
+    "expo-localization": "~16.0.0",
+    "expo-status-bar": "~2.0.0",
+    "react": "18.3.1",
+    "react-native": "0.76.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "~18.3.12",
+    "tsx": "^4.19.2",
+    "typescript": "^5"
+  }
+}

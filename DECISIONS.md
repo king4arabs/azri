@@ -78,6 +78,33 @@
   - − Renaming a CTA / FAQ / sitemap `id` is a breaking change for any surface that targets it; coordination is required.
   - − Adds a small TypeScript toolchain (`tsc`, `tsx`, `@types/node`) at `packages/content/` only — does not yet require monorepo tooling at the repo root.
 
+## ADR-0009 — Watch & wearable strategy: Apple Watch (native), Wear OS (native), Whoop (cloud webhook)
+- **Status:** accepted (2026-04-23, Unreleased / planned for `v0.4.0`)
+- **Context:** Patient monitoring requires biosignal capture on the wrist. The serviceable wearable market for KSA / GCC patients is dominated by (a) Apple Watch (high penetration), (b) Samsung Galaxy Watch (Wear OS 4+ on modern models, Tizen on older), (c) Whoop (smaller but growing premium adherence segment, fully cloud-based — no on-wrist UI to write). Each platform exposes biosignals through a different API, with different real-time capabilities, different consent models, and different latency for on-wrist alerts.
+- **Decision:**
+  - **Apple Watch** — *native* watchOS companion app sharing a Swift package with the iPhone app (`apps/ios/AzriShared`). HealthKit is the read source on the phone; WatchConnectivity bridges on-wrist alerts and one-tap quick episodes. We do not use a cross-platform mobile framework on the watch — latency and battery for emergency alerts must be native.
+  - **Wear OS (Samsung & Pixel)** — *native* Kotlin + Compose Wear OS app under `apps/wear-os/` using Google's Health Services API. A foreground service keeps the heart-rate stream alive while the screen is off. Same UX shape as the watchOS app: alert screen + quick-episode screen.
+  - **Tizen (Galaxy Watch 3 and earlier)** — *not actively supported.* Documented as "unsupported model" in the patient app with a phone-side bridge (HealthKit / Google Fit) as a degraded-but-better-than-nothing fallback. Tracked in `OPERATIONS.md` rather than as a build target.
+  - **Whoop** — *server-side adapter only* (`integrations/whoop/`). Whoop has no on-wrist UI surface for third parties; we OAuth2-link the patient's Whoop account, register a webhook, and pull recovery / sleep / cycle resources on-demand. Normalised to the same `BiosignalBatchEvent` shape as the watch ingest path so downstream consumers cannot tell the difference.
+  - All four surfaces converge on `@azri/contracts` so the API and the doctor console see one schema.
+- **Consequences:**
+  - + Native code where latency / battery matter; no React Native on the wrist.
+  - + One wire format across Apple Watch, Wear OS, Whoop, and self-report — analytics and audit are uniform.
+  - + Clear "supported / unsupported" narrative for KSA patients with older Galaxy Watches.
+  - − Two native codebases to maintain (Swift, Kotlin) plus a TypeScript adapter — three platforms, three skill sets.
+  - − When `@azri/contracts` changes shape (MAJOR), the Swift mirror in `apps/ios/AzriShared/Models/ContractTypes.swift` and the Kotlin mirror in `apps/wear-os/app/src/main/java/ai/azri/wear/ContractTypes.kt` MUST be updated in the same PR. CI checks the `SCHEMA_VERSION` constant on each side.
+  - − Whoop's developer API may change (scopes, signing scheme); the adapter is pinned and any drift is a contract change requiring a bump.
+
+## ADR-0011 — Ingestion API: Fastify + Zod
+- **Status:** accepted (2026-04-23, Unreleased / planned for `v0.4.0`)
+- **Context:** v0.4.0 needs an HTTP API to receive batched watch events, Whoop webhooks, and self-reported episodes. Top requirements: per-event request validation, OpenAPI-derived for the doctor console + mobile clients, structured PHI-aware logging, idempotent under at-least-once delivery (Whoop), and small enough for one engineer to operate.
+- **Decision:** Fastify 5 + Zod (via `@azri/contracts`) + OpenAPI via `@fastify/swagger`. Idempotency lives behind an interface (`IdempotencyStore`) backed by an in-memory map in dev / test and Redis in prod. PHI redaction is enforced both via pino's `redact.paths` and a structural `redactForLog()` helper for the dynamic shapes coming off the wire.
+- **Consequences:**
+  - + Same Zod schemas validate the wire and the type-check the consumers — no duplicated truth.
+  - + OpenAPI surface is automatically published, so the iOS / Wear OS / web clients can codegen typed clients in subsequent phases.
+  - − Fastify v5 requires Node ≥ 20; CI matrices set accordingly.
+  - − The in-memory idempotency store is unsafe across multiple instances; Redis-backed swap is on the v0.5.0 hardening list (tracked in `TODO.md`).
+
 ---
 
 ## How to add a new ADR

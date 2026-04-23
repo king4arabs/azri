@@ -20,3 +20,21 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
+
+# Native build artefacts
+apps/ios/.build/
+apps/ios/DerivedData/
+apps/ios/*.xcworkspace/xcuserdata/
+apps/wear-os/.gradle/
+apps/wear-os/build/
+apps/wear-os/**/build/
+apps/wear-os/local.properties
+
+# Expo / React Native
+apps/mobile/.expo/
+apps/mobile/dist/
+apps/mobile/web-build/
+apps/mobile/ios/Pods/
+
+# Coverage
+coverage/

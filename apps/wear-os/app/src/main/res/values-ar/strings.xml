@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">أزري</string>
+    <string name="channel_collect">رصد أزري في الخلفية</string>
+    <string name="channel_alerts">تنبيهات أزري</string>
+    <string name="collect_title">أزري يراقب الآن</string>
+    <string name="collect_body">يتم تسجيل نبض القلب والحركة.</string>
+    <string name="alert_title">تنبيه أزري</string>
+    <string name="alert_body">هل أنت بخير؟</string>
+    <string name="alert_ack">أنا بخير</string>
+    <string name="episode_prompt">سجّل ما تشعر به</string>
+    <string name="episode_log">تسجيل</string>
+    <string name="episode_sent">تم الإرسال</string>
+</resources>
