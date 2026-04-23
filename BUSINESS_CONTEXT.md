@@ -75,6 +75,34 @@ Doctor opens timeline → filters by episode/severity/medication → annotates �
 | **Clinic** | Small clinics | Multi-doctor org, SSO, basic audit, billing |
 | **Enterprise / Hospital / Insurer** | Institutions | RBAC, audit, SSO, EMR integration, DPA, dedicated success |
 
+### Current state vs. target
+
+The pricing section shipped today in `@azri/content` (see
+[`packages/content/src/data/azri.ts`](./packages/content/src/data/azri.ts),
+`pricing.plans`) is deliberately a **mirror of the live `azri.ai` site**
+— four tiers: `basic` ($9), `advanced` ($19), `insuranceDoctors` ($49),
+`enterprise` (custom). The package's own `pricing.note` field records
+this mirror relationship.
+
+The five-tier target above is **aspirational product intent**, not a
+shipped SKU set. Reconciling the two requires:
+
+1. A marketing decision on final SKU naming (including Arabic naming —
+   today's plan names are English labels used in both locales, which
+   violates the Arabic-first principle in [`I18N_L10N.md`](./I18N_L10N.md)).
+2. A trial-length decision for Care+.
+3. A per-seat vs. per-active-patient decision for the Doctor tier.
+4. A pricing model decision for the Insurer tier (per-member-per-month
+   vs. outcome-linked).
+
+All four are tracked in *Open questions* below. Until they are
+resolved, the shipped content continues to mirror the live site and
+must not be reshaped unilaterally by engineering. Once the marketing
+decision is made, update `packages/content/src/data/azri.ts` pricing
+in the same PR that updates the live site, and mention ADR-worthy
+tradeoffs (e.g. moving from `$`-prefixed to `SAR`-prefixed pricing)
+in [`DECISIONS.md`](./DECISIONS.md).
+
 Conversion paths to instrument (see [`ANALYTICS.md`](./ANALYTICS.md)):
 - Marketing → demo request
 - Marketing → free patient sign-up → Care+ upgrade
