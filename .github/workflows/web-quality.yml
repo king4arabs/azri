@@ -1,0 +1,43 @@
+name: Web Quality (Lighthouse + axe)
+
+# Lighthouse CI runs the Lighthouse audit, which uses the axe-core engine for
+# its accessibility category. A single LHCI job therefore gates both the
+# `axe` and `lighthouse-CI` items called out in `TODO.md` under
+# "Now (v0.1.0 → v0.2.0 transition) → Priority 2 — platform clarity".
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "web/**"
+      - "packages/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/web-quality.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    name: Lighthouse CI (a11y via axe-core, perf, best-practices, seo)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install workspace dependencies
+        run: npm install
+      - name: Build web
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: npm run build --workspace=web
+      - name: Run Lighthouse CI
+        working-directory: web
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        run: npx --no-install lhci autorun --config=./lighthouserc.json

@@ -22,7 +22,7 @@
   - [x] Type-check + unit tests for `@azri/content` on a Node matrix (`.github/workflows/ci.yml`).
   - [x] Lint + type-check + build for `web/` (`.github/workflows/web-ci.yml`).
   - [ ] Build matrix for api (awaiting scaffold).
-  - [ ] axe + lighthouse-CI (awaiting first reviewable UI surface).
+  - [x] axe + lighthouse-CI for `web/` (`.github/workflows/web-quality.yml` + `web/lighthouserc.json`). Lighthouse runs the axe-core engine for its accessibility category, so a single LHCI job covers both signals; a11y is a hard gate (≥0.9), perf/best-practices/SEO are warnings for the first baseline.
 - [ ] Sentry + PostHog + Plausible/GA wired with PHI exclusions.
 - [x] PR template enforcement for healthcare wording check *(embedded in `.github/PULL_REQUEST_TEMPLATE.md` — required checklist for user-visible copy)*.
 
