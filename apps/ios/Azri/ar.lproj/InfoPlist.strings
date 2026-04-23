@@ -1,0 +1,6 @@
+/* HealthKit / motion / notifications — Arabic prompts shown to KSA patients. */
+
+"NSHealthShareUsageDescription" = "تستخدم أزري بيانات نبض القلب وتنوع معدله والنوم والحركة لدعم متابعة الصرع وإشعار من تثق بهم من مقدمي الرعاية.";
+"NSHealthUpdateUsageDescription" = "لا يكتب تطبيق أزري حاليًا في تطبيق الصحة.";
+"NSMotionUsageDescription" = "يستخدم أزري بيانات الحركة من ساعة آبل للمساعدة في رصد السقوط المحتمل وأنماط النشاط غير المعتادة.";
+"NSUserNotificationsUsageDescription" = "يرسل أزري إليك التنبيهات والتذكيرات المتعلقة بخطة الرعاية.";

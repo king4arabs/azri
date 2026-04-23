@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDisplayName</key>
+    <string>AZRI</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.4.0</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>ar</string>
+    <key>CFBundleLocalizations</key>
+    <array>
+        <string>ar</string>
+        <string>en</string>
+    </array>
+    <key>UIRequiresFullScreen</key>
+    <false/>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+    </array>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>remote-notification</string>
+        <string>processing</string>
+    </array>
+    <!-- HealthKit usage strings — translated in InfoPlist.strings -->
+    <key>NSHealthShareUsageDescription</key>
+    <string>AZRI uses your heart rate, HRV, sleep, and movement data to support epilepsy monitoring and to alert your trusted caregivers.</string>
+    <key>NSHealthUpdateUsageDescription</key>
+    <string>AZRI does not write to HealthKit at this time.</string>
+    <key>NSMotionUsageDescription</key>
+    <string>AZRI uses motion data on your Apple Watch to help detect possible falls and unusual activity patterns.</string>
+    <key>NSUserNotificationsUsageDescription</key>
+    <string>AZRI sends you alerts and reminders related to your care plan.</string>
+</dict>
+</plist>

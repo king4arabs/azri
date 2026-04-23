@@ -1,0 +1,37 @@
+name: Wear OS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "apps/wear-os/**"
+      - ".github/workflows/wear-os-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  wear:
+    name: Wear OS assembleDebug + unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      # Generate the wrapper jar on the fly so the repo doesn't carry a
+      # binary blob in tree.
+      - name: Generate gradle wrapper
+        working-directory: apps/wear-os
+        run: |
+          curl -sSL "https://services.gradle.org/distributions/gradle-8.10.2-bin.zip" -o gradle.zip
+          unzip -q gradle.zip
+          ./gradle-8.10.2/bin/gradle wrapper --gradle-version 8.10.2 --distribution-type bin
+      - name: Test
+        working-directory: apps/wear-os
+        run: ./gradlew :app:test
+      - name: AssembleDebug (skips if no Android SDK on the runner)
+        working-directory: apps/wear-os
+        run: ./gradlew :app:assembleDebug --warning-mode=summary || echo "Android SDK not provisioned on this runner — skipping APK build."

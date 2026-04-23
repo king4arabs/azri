@@ -1,0 +1,32 @@
+"tab.episodes" = "Log";
+"tab.trends" = "Trends";
+"tab.alerts" = "Alerts";
+
+"episode.type" = "Episode type";
+"episode.type.suspected_seizure" = "Suspected seizure";
+"episode.type.aura" = "Aura";
+"episode.type.fall" = "Fall";
+"episode.type.sleep_disturbance" = "Sleep disturbance";
+"episode.type.missed_medication" = "Missed medication";
+"episode.type.mood_change" = "Mood change";
+"episode.type.other" = "Other";
+
+"episode.severity" = "Severity";
+"episode.severity.mild" = "Mild";
+"episode.severity.moderate" = "Moderate";
+"episode.severity.severe" = "Severe";
+
+"episode.duration" = "Approximate duration";
+"episode.duration.unknown" = "Unknown";
+
+"episode.note" = "Note (optional)";
+"episode.submit" = "Submit";
+
+"trends.today" = "Today";
+"trends.heartRate.avg" = "Average heart rate";
+"trends.hrv.avg" = "Average HRV";
+"trends.sleep" = "Sleep";
+
+"alerts.recent" = "Recent alerts";
+"alerts.empty" = "No recent alerts";
+"alerts.manageCaregivers" = "Manage caregivers";

@@ -57,19 +57,22 @@
 
 ## Module boundaries (v0.2.0 → v0.5.0)
 
-| Module | Responsibility | Owner persona |
-| --- | --- | --- |
-| `web/marketing` | Public site, pricing, demo, content | Marketing |
-| `web/app` | Authenticated patient & caregiver experience | Product |
-| `web/console` | Doctor + institution console | Clinical Product |
-| `api/core` | Patients, episodes, organizations, RBAC, audit | Backend |
-| `api/insights` | AI summaries, signal analysis, guardrails | AI/ML |
-| `api/notifications` | Email, SMS, push fan-out | Backend |
-| `mobile/ios` | Patient app + Watch companion | Mobile |
-| `infra` | Terraform, environments, secrets bootstrap | DevOps/SRE |
-| `packages/ui` | shadcn/ui-based design system, RTL-aware | Design Eng |
-| `packages/i18n` | Locale catalog, ICU messages, plural rules | i18n |
-| `packages/contracts` | Shared types / OpenAPI clients | Backend |
+| Module | Responsibility | Owner persona | Status |
+| --- | --- | --- | --- |
+| `web/` (`/`) | Public marketing site, pricing, demo, content | Marketing | live |
+| `web/` (`/app/*`) | Authenticated patient & caregiver experience | Product | scaffold in v0.4.0 PR |
+| `web/` (`/console`) | Doctor + institution console | Clinical Product | preview in v0.4.0 PR |
+| `api/` (`@azri/api`) | Watch & Whoop ingestion, episodes, alerts, OpenAPI | Backend | scaffold in v0.4.0 PR |
+| `api/insights` | AI summaries, signal analysis, guardrails | AI/ML | planned v0.6.0 |
+| `api/notifications` | Email, SMS, push fan-out | Backend | planned v0.5.0 |
+| `apps/mobile` (`@azri/mobile`) | Expo / RN patient app | Mobile | scaffold in v0.4.0 PR |
+| `apps/ios` | iPhone + watchOS native (HealthKit + Watch) | Mobile | scaffold in v0.4.0 PR |
+| `apps/wear-os` | Wear OS native (Samsung Galaxy Watch 4+) | Mobile | scaffold in v0.4.0 PR |
+| `integrations/whoop` (`@azri/whoop`) | Whoop OAuth2 + webhook + normalisers | Backend | scaffold in v0.4.0 PR |
+| `infra` | Terraform, environments, secrets bootstrap | DevOps/SRE | planned v0.5.0 |
+| `packages/ui` | shadcn/ui-based design system, RTL-aware | Design Eng | planned v0.3.0 |
+| `packages/i18n` | Locale catalog, ICU messages, plural rules | i18n | scoped into `@azri/content` for now |
+| `packages/contracts` (`@azri/contracts`) | Shared Zod schemas + brand-typed ids | Backend | shipped in v0.4.0 PR |
 
 ## Data flow principles
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AZRI</string>
+    <string name="channel_collect">AZRI background collection</string>
+    <string name="channel_alerts">AZRI alerts</string>
+    <string name="collect_title">AZRI is monitoring</string>
+    <string name="collect_body">Heart rate and motion are being recorded.</string>
+    <string name="alert_title">AZRI alert</string>
+    <string name="alert_body">Are you OK?</string>
+    <string name="alert_ack">I\'m OK</string>
+    <string name="episode_prompt">Log how you feel</string>
+    <string name="episode_log">Log</string>
+    <string name="episode_sent">Sent</string>
+</resources>

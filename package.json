@@ -2,5 +2,17 @@
   "name": "azri",
   "version": "0.1.0",
   "private": true,
-  "workspaces": ["packages/*", "web"]
+  "workspaces": [
+    "packages/*",
+    "web",
+    "api",
+    "apps/mobile",
+    "integrations/*"
+  ],
+  "scripts": {
+    "typecheck": "npm run -ws --if-present typecheck",
+    "test": "npm run -ws --if-present test",
+    "lint": "npm run -ws --if-present lint",
+    "build": "npm run -ws --if-present build"
+  }
 }

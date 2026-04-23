@@ -1,0 +1,32 @@
+"tab.episodes" = "السجل";
+"tab.trends" = "المؤشرات";
+"tab.alerts" = "التنبيهات";
+
+"episode.type" = "نوع الحدث";
+"episode.type.suspected_seizure" = "نوبة محتملة";
+"episode.type.aura" = "إنذار مبكر";
+"episode.type.fall" = "سقوط";
+"episode.type.sleep_disturbance" = "اضطراب نوم";
+"episode.type.missed_medication" = "نسيان جرعة";
+"episode.type.mood_change" = "تغيّر مزاج";
+"episode.type.other" = "أخرى";
+
+"episode.severity" = "الشدة";
+"episode.severity.mild" = "خفيف";
+"episode.severity.moderate" = "متوسط";
+"episode.severity.severe" = "شديد";
+
+"episode.duration" = "المدة التقريبية";
+"episode.duration.unknown" = "غير معروف";
+
+"episode.note" = "ملاحظة (اختيارية)";
+"episode.submit" = "إرسال";
+
+"trends.today" = "اليوم";
+"trends.heartRate.avg" = "متوسط نبضات القلب";
+"trends.hrv.avg" = "متوسط تنوع نبض القلب";
+"trends.sleep" = "النوم";
+
+"alerts.recent" = "أحدث التنبيهات";
+"alerts.empty" = "لا توجد تنبيهات حديثة";
+"alerts.manageCaregivers" = "إدارة مقدمي الرعاية";

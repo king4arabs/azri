@@ -44,11 +44,15 @@ v1.0.0  General availability
 - Integration tests + contract tests against OpenAPI.
 - **Outcome:** Doctors can review patient data with full audit trails.
 
-## v0.4.0 — Patient mobile app + HealthKit + Apple Watch
-- iOS app (SwiftUI), Arabic-first.
-- HealthKit read/write scoped narrowly; Apple Watch companion for passive signals + on-wrist alerts.
-- Caregiver consent-scoped invite flow.
-- **Outcome:** Patients can self-monitor; caregivers can be looped in safely.
+## v0.4.0 — Patient mobile app + watch & wearable integrations
+- Shared schema package `@azri/contracts` (Zod) — single source of truth for the wire format across web, mobile, watchOS, Wear OS, Whoop adapter, and the API. ADR-0009.
+- Fastify ingestion API (`@azri/api`) — idempotent batch ingest endpoint, Whoop webhook receiver with HMAC verification + replay protection, episode + alert relay endpoints, OpenAPI UI. ADR-0011.
+- iOS app (SwiftUI), Arabic-first; HealthKit read scopes narrowly defined; Apple Watch companion for on-wrist alerts and one-tap quick-episode logging via WatchConnectivity.
+- Wear OS companion (`apps/wear-os/`) for Samsung Galaxy Watch 4+ and other Wear OS watches — Kotlin + Compose, Health Services API, foreground biosignal capture. Tizen / Galaxy Watch 3 documented as unsupported with phone-side bridge fallback (ADR-0009).
+- Whoop integration (`integrations/whoop/`) — OAuth2 link, refresh-token rotation, recovery / sleep / cycle pull, normalisation to `BiosignalBatchEvent`s.
+- Expo / React Native patient app (`apps/mobile/`) for cross-platform parity until a native Android Health Connect path is justified.
+- Caregiver consent-scoped invite flow (web `/app/caregivers`).
+- **Outcome:** Patients can self-monitor across Apple Watch, Whoop, and Wear OS; caregivers can be looped in safely.
 
 ## v0.5.0 — Institutional SaaS (RBAC, audit, billing)
 - Organization tenancy, SSO (SAML/OIDC), role hierarchy.

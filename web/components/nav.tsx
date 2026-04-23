@@ -12,6 +12,8 @@ const NAV_LINKS: ReadonlyArray<{ href: string; labelKey: keyof typeof labels }> 
   { href: "/pricing", labelKey: "pricing" },
   { href: "/faq", labelKey: "faq" },
   { href: "/contact", labelKey: "contact" },
+  { href: "/app", labelKey: "patientApp" },
+  { href: "/console", labelKey: "console" },
 ];
 
 const labels = {
@@ -25,6 +27,8 @@ const labels = {
   pricing: { ar: "الأسعار", en: "Pricing" },
   faq: { ar: "الأسئلة الشائعة", en: "FAQ" },
   contact: { ar: "تواصل", en: "Contact" },
+  patientApp: { ar: "التطبيق", en: "App" },
+  console: { ar: "لوحة الطبيب", en: "Console" },
 } as const;
 
 export function Nav() {
