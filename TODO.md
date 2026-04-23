@@ -16,13 +16,13 @@
 - [x] Bring KSA data classification table into `DATA_MODEL.md` (PDPL + NDMO mapping + residency + consent; *legal review still required before v0.7.0 launch*).
 
 ### Priority 2 — platform clarity
-- [x] Scaffold `web/` (Next.js App Router + Tailwind v4, Arabic-first, RTL) — see `web/` and ADR-0011. Consumes `@azri/content`; `/` → `/ar`.
-- [x] Scaffold `api/` (Fastify 5 + TS + Pino + OpenAPI) — see `api/` and ADR-0012. Health/readiness/version only; no auth, no DB yet.
-- [ ] CI: lint, type-check, unit, build matrix; axe; lighthouse-CI.
-  - [x] Type-check + unit tests for `@azri/content` on a Node matrix (`.github/workflows/ci.yml`).
-  - [x] Type-check + build for `@azri/web` on a Node 20/22 matrix.
-  - [x] Type-check + build + unit tests for `@azri/api` on a Node 20/22 matrix.
-  - [ ] Lint step (awaiting repo-wide linter choice — ESLint flat config next).
+- [x] Scaffold `web/` (Next.js App Router + Tailwind v4, Arabic-first, RTL) — ADR-0011. Consumes `@azri/content` via binding-driven section renderers (`web/components/sections.tsx`). shadcn/ui deferred — to materialise as `packages/ui` once the first interactive flow needs it.
+- [x] Scaffold `api/` (Fastify 5 + TS + Pino + OpenAPI) — ADR-0012. Health/readiness/version only; no auth, no DB yet.
+- [ ] CI: lint, type-check, unit, build matrix; axe; lighthouse-CI — unified in `.github/workflows/ci.yml` (workspaces-aware).
+  - [x] Type-check + unit tests for `@azri/content` on Node 20/22.
+  - [x] Lint + type-check + build for `@azri/web` on Node 20/22 (ESLint flat config via `eslint-config-next`).
+  - [x] Type-check + build + unit tests for `@azri/api` on Node 20/22.
+  - [ ] Extend lint step to `@azri/content` + `@azri/api` (awaiting flat-config for non-web packages).
   - [ ] axe + lighthouse-CI (awaiting first interactive UI surface beyond the static marketing scaffold).
   - [ ] iOS / watchOS build on a macOS runner (awaits Xcode Cloud or self-hosted mac; tracked in "Discovered while doing v0.2.0").
 - [ ] Sentry + PostHog + Plausible/GA wired with PHI exclusions.

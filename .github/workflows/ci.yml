@@ -2,8 +2,8 @@ name: CI
 
 # Application-code CI for AZRI.
 #
-# Covers today: @azri/content, @azri/api, @azri/web.
-# When further packages land, add their jobs below.
+# Covers: @azri/content, @azri/api, @azri/web via npm workspaces at the
+# repository root.
 #
 # Healthcare context: every code-introducing PR must pass typecheck +
 # tests + build. The docs-validation workflow continues to guard
@@ -21,6 +21,8 @@ on:
       - "packages/**"
       - "api/**"
       - "web/**"
+      - "package.json"
+      - "package-lock.json"
       - ".github/workflows/ci.yml"
 
 permissions:
@@ -31,31 +33,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  content-package:
+  content:
     name: "@azri/content (Node ${{ matrix.node }})"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        node: ["20.x", "22.x"]
-    defaults:
-      run:
-        working-directory: packages/content
+        node: ["20", "22"]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "npm"
-          cache-dependency-path: packages/content/package-lock.json
-      - name: Install dependencies
-        run: npm ci
-      - name: Typecheck
-        run: npm run typecheck
-      - name: Unit tests
-        run: npm test
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck --workspace=@azri/content
+      - run: npm test --workspace=@azri/content
 
   api:
     name: "@azri/api (Node ${{ matrix.node }})"
@@ -63,27 +56,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ["20.x", "22.x"]
-    defaults:
-      run:
-        working-directory: api
+        node: ["20", "22"]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "npm"
-          cache-dependency-path: api/package-lock.json
-      - name: Install dependencies
-        run: npm ci
-      - name: Typecheck
-        run: npm run typecheck
-      - name: Build
-        run: npm run build
-      - name: Unit tests
-        run: npm test
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck --workspace=@azri/api
+      - run: npm run build --workspace=@azri/api
+      - run: npm test --workspace=@azri/api
 
   web:
     name: "@azri/web (Node ${{ matrix.node }})"
@@ -91,22 +74,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ["20.x", "22.x"]
-    defaults:
-      run:
-        working-directory: web
+        node: ["20", "22"]
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "npm"
-          cache-dependency-path: web/package-lock.json
-      - name: Install dependencies
-        run: npm ci
-      - name: Typecheck
-        run: npm run typecheck
-      - name: Build
-        run: npm run build
+          cache: npm
+      - run: npm ci
+      - run: npm run lint --workspace=web
+      - run: npm run typecheck --workspace=web
+      - run: npm run build --workspace=web

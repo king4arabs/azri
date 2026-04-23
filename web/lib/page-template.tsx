@@ -1,12 +1,10 @@
-import { webPages } from "@azri/content";
+import { webPages, type PageId } from "@azri/content";
+import type { PageBinding } from "@azri/content/page-bindings";
 import { renderSections } from "@/components/sections";
 import { MedicalDisclaimer } from "@/components/medical-disclaimer";
-import { buildMetadata } from "@/lib/seo";
 
-export const metadata = buildMetadata("home");
-
-export default function HomePage() {
-  const binding = webPages.home;
+export function PageContent({ pageId }: { pageId: PageId }) {
+  const binding: PageBinding = webPages[pageId];
   return (
     <>
       {binding.requiresMedicalDisclaimer ? <MedicalDisclaimer /> : null}
