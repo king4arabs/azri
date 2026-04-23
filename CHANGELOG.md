@@ -33,21 +33,32 @@ All notable changes to AZRI are documented here. The format follows [Keep a Chan
 - `DECISIONS.md` — **ADR-0010** records the decision to centralize bilingual content in `@azri/content` as a typed, framework-agnostic package.
 - Root `.gitignore` added to keep `node_modules/`, build output, and local env files out of the repo.
 
+### Added — Web marketing scaffold (planned for `v0.2.0`)
+- Root `package.json` — npm workspaces wiring `packages/*` and `web` together so `@azri/content` is consumed in-repo without publishing.
+- `web/` — Next.js 16 (App Router, Turbopack) + Tailwind v4 + TypeScript marketing site, scaffolded Arabic-first (`<html lang="ar" dir="rtl">`) with `next/font/google` loading **Noto Sans Arabic** (default) and **Inter** (Latin fallback).
+  - All 13 marketing routes wired to `webPages` bindings: `/`, `/about`, `/solutions`, `/patients-families`, `/doctors`, `/institutions`, `/technology`, `/pricing`, `/faq`, `/contact`, `/legal/privacy`, `/legal/terms`, `/legal/medical-disclaimer`.
+  - `components/` — `Nav`, `Footer`, `MedicalDisclaimer`, `Section`, plus a `sections.tsx` renderer that maps every `ContentSectionKey` (hero, whyAzri, audienceSegments, valuePropositions, productSuite, howItWorks, appleWatch, benefits, pricing, trustAndResponsibility, finalCTA, page-specific sections, etc.) to RTL-friendly Tailwind markup using logical properties (`ps-`, `pe-`, `text-start`, `ms-`).
+  - All visible text rendered through `pick(field, DEFAULT_LOCALE)` — no hard-coded UI copy.
+  - Per-page SEO metadata sourced from `azriContent.seo.pages.<id>` with fallback to `defaultDescription`.
+  - `MedicalDisclaimer` rendered automatically on pages whose binding declares `requiresMedicalDisclaimer`.
+  - `web/.env.example` — documents every env key (auth provider, PostHog, Sentry, Plausible, app URL) with no real values.
+- `.github/workflows/web-ci.yml` — lint / typecheck / build CI for the web workspace on push to `main` and on PRs touching `web/`, `packages/`, or the root manifest.
+
 ### Changed
 - `I18N_L10N.md` — added a "Content system" section pointing to `@azri/content` as the runtime mechanism that operationalizes the i18n strategy.
 - `PROJECT_STATUS.md` — updated audit dimensions #13 (Arabic/English support), #14 (RTL/LTR), #20 (SEO/metadata) to reflect that the bilingual content schema and SEO source now exist (no UI consumer yet).
 - `README.md` — added `CONTENT_SYSTEM.md` and `packages/content` to the document map.
 
 ### Notes
-- No application code is wired to the content package yet — that lands with the web scaffold in `v0.2.0` and the patient/doctor surfaces in subsequent minors.
+- The web marketing scaffold (Next.js) now consumes `@azri/content` end-to-end — every visible string flows through `pick()`.
 - Docs validation CI (`docs-validation.yml`) is unchanged; no required documentation files were removed or renamed.
 
 ### Still planned for `v0.2.0` — see [`ROADMAP.md`](./ROADMAP.md)
-- Web app scaffolding (Next.js + Tailwind + shadcn/ui, Arabic-first, RTL) wired to `@azri/content`.
 - API skeleton with OpenAPI contract and health endpoints.
 - Auth provider decision finalized in `DECISIONS.md` (ADR-0004).
-- CI workflows for lint/test/build matrix (will include `packages/content` typecheck + tests).
+- Expand CI matrix to include unit tests, accessibility (axe), and Lighthouse-CI (current `web-ci.yml` covers lint / typecheck / build only).
 - Initial analytics event taxonomy wired (PostHog + privacy-safe marketing analytics).
+- shadcn/ui component primitives (deferred — Tailwind v4 is in place; shadcn init can be run when first component is needed).
 
 ---
 
