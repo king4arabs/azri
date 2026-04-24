@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    AZRI launcher foreground: a stylized "A" mark drawn within the
+    safe zone (inner 72x72 dp area) of the 108x108 dp adaptive-icon canvas.
+    The path is intentionally a flat vector so no raster assets are needed.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Outer triangle of the "A". -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M54,30 L78,80 L66,80 L54,54 L42,80 L30,80 Z" />
+    <!-- Crossbar of the "A". -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M44,66 L64,66 L64,72 L44,72 Z" />
+</vector>
